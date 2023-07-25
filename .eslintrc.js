@@ -31,7 +31,11 @@ module.exports = {
         "@typescript-eslint/explicit-function-return-type": "warn",
         "@typescript-eslint/no-floating-promises": "off",
         "@typescript-eslint/naming-convention": "off",
-        "i18next/no-literal-string": ['error', {markupOnly: true}]
+        "i18next/no-literal-string": ['error', {markupOnly: true, ignoreAttributes: ['data-testid']}]
     },
     ignorePatterns: ['.eslintrc.js'],
+    overrides: {
+        files: ['**/src/**/*.test.{ts,tsx}'],
+        rules: {"i18next/no-literal-string": 'off'}
+    }
 };

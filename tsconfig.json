@@ -37,7 +37,10 @@
         "compilerOptions": {
             "module": "CommonJS"
         }
-    }
+    },
+    // "include": [
+    //     "./config/jest/setupTests.ts"
+    // ]
     // "include": [
     //     // 👇️ add all the directories and files
     //     // that you want to lint here
