@@ -14,7 +14,7 @@ export const BugButton = () => {
 
     return (
         <Button onClick={toggle}>
-            throw error
+            {/* throw error */}
         </Button>
     )
 }

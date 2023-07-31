@@ -22,6 +22,7 @@ module.exports = {
   plugins: ["react", "i18next"],
   rules: {
     "@typescript-eslint/indent": [2, 4],
+    "@typescript-eslint/consistent-type-assertions": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "off",
     "react/react-in-jsx-scope": "off",
