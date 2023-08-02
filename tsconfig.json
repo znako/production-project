@@ -46,7 +46,7 @@
         "jest.config.ts",
         "jestEmptyComponent.tsx",
         ""
-    ]
+, "src/shared/lib/tests/renderWithTranslations"    ]
     // "include": [
     //     // 👇️ add all the directories and files
     //     // that you want to lint here

@@ -1,3 +1,4 @@
 /config/jest/jest.config.ts
 /config/jest/jestEmptyComponent.tsx
 /config/storybook/webpack.config.ts
+/scripts/generate-visual-json-report.js
