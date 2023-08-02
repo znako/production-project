@@ -1,7 +1,7 @@
 import React from 'react'
 import { type ComponentStory, type ComponentMeta } from '@storybook/react'
 
-import { Button, ThemeButton } from './Button'
+import { Button, ButtonSize, ButtonTheme } from './Button'
 import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator'
 import { Theme } from 'app/providers/ThemeProvider'
 
@@ -22,20 +22,61 @@ Primary.args = {
 
 export const Clear = Template.bind({})
 Clear.args = {
-    theme: ThemeButton.CLEAR,
+    theme: ButtonTheme.CLEAR,
     children: 'Text'
 }
 
 export const Outline = Template.bind({})
 Outline.args = {
     children: 'Text',
-    theme: ThemeButton.OUTLINE
+    theme: ButtonTheme.OUTLINE
+}
+
+export const SizeLOutline = Template.bind({})
+SizeLOutline.args = {
+    children: 'Text',
+    theme: ButtonTheme.OUTLINE,
+    size: ButtonSize.L
+}
+
+export const SizeXLOutline = Template.bind({})
+SizeXLOutline.args = {
+    children: 'Text',
+    theme: ButtonTheme.OUTLINE,
+    size: ButtonSize.XL
 }
 
 export const OutlineDark = Template.bind({})
 OutlineDark.args = {
     children: 'Text',
-    theme: ThemeButton.OUTLINE
+    theme: ButtonTheme.OUTLINE
+}
+OutlineDark.decorators = [ThemeDecorator(Theme.DARK)]
+
+export const Background = Template.bind({})
+Background.args = {
+    children: 'Text',
+    theme: ButtonTheme.BACKGROUND
 }
 
-OutlineDark.decorators = [ThemeDecorator(Theme.DARK)]
+export const BackgroundInverted = Template.bind({})
+BackgroundInverted.args = {
+    children: 'Text',
+    theme: ButtonTheme.BACKGROUND_INVERTED
+}
+
+export const SizeLSquare = Template.bind({})
+SizeLSquare.args = {
+    children: '>',
+    size: ButtonSize.L,
+    theme: ButtonTheme.BACKGROUND_INVERTED,
+    square: true
+}
+
+export const SizeXLSquare = Template.bind({})
+SizeXLSquare.args = {
+    children: '>',
+    size: ButtonSize.XL,
+    theme: ButtonTheme.BACKGROUND_INVERTED,
+    square: true
+}
