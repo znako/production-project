@@ -4,7 +4,7 @@ module.exports = {
     es2021: true,
     jest: true
   },
-  extends: ["standard-with-typescript", "plugin:react/recommended", "plugin:i18next/recommended", "plugin:storybook/recommended", "plugin:storybook/recommended"],
+  extends: ["standard-with-typescript", "plugin:react/recommended", "plugin:i18next/recommended", "plugin:storybook/recommended", "plugin:storybook/recommended", "plugin:react-hooks/recommended"],
   overrides: [{
     env: {
       node: true
@@ -33,7 +33,9 @@ module.exports = {
     "i18next/no-literal-string": ['error', {
       markupOnly: true,
       ignoreAttribute: ['data-testid', 'to']
-    }]
+    }],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error"
   },
   ignorePatterns: ['.eslintrc.js'],
   overrides: [{
