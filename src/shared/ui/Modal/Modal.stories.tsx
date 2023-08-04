@@ -23,6 +23,6 @@ Normal.args = {
 export const Dark = Template.bind({})
 Dark.args = {
     isOpen: true,
-    children: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem sunt labore, nam reiciendis provident quaerat ducimus esse nisi, vero deserunt facilis iusto a tempore, ratione quae voluptas suscipit ipsam recusandae.'
+    children: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem sunt labore, nam reiciendis provident quaerat ducimus esse nisi, vero deserunt facilis iusto a tempore, ratione quae voluptas suscipit ipsam.'
 }
 Dark.decorators = [ThemeDecorator(Theme.DARK)]
