@@ -1,15 +1,15 @@
-import { Counter } from 'entities/Counter'
-import { useTranslation } from 'react-i18next'
+import { Counter } from 'entities/Counter';
+import { useTranslation } from 'react-i18next';
 
 const MainPage = () => {
-    const { t } = useTranslation('main')
+    const { t } = useTranslation();
 
     return (
         <div>
-            {t('Главная')}
-            <Counter />
+            {t('Главная страница')}
+            <Counter/>
         </div>
-    )
-}
+    );
+};
 
-export default MainPage
+export default MainPage;
