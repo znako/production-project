@@ -2,3 +2,4 @@
 /config/jest/jestEmptyComponent.tsx
 /config/storybook/webpack.config.ts
 /scripts/generate-visual-json-report.js
+/json-server/index.js
