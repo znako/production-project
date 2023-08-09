@@ -11,10 +11,12 @@ export interface ModalProps {
     children?: ReactNode
     isOpen: boolean
     close?: () => void
+    lazy?: boolean
 }
 
 export const Modal = (props: ModalProps) => {
     const [isClosed, setIsClosed] = useState(false)
+    const [mounted, setMounted] = useState(false)
     const refTimer = useRef<ReturnType <typeof setTimeout>>()
     const { theme } = useTheme()
 
@@ -22,7 +24,8 @@ export const Modal = (props: ModalProps) => {
         className,
         children,
         isOpen,
-        close
+        close,
+        lazy
     } = props
 
     const mods: Record<string, boolean> = {
@@ -60,6 +63,16 @@ export const Modal = (props: ModalProps) => {
             window.removeEventListener('keydown', closeEsc)
         }
     }, [isOpen, closeEsc])
+
+    useEffect(() => {
+        if (isOpen) {
+            setMounted(true)
+        }
+    }, [isOpen])
+
+    if (lazy && !mounted) {
+        return null
+    }
 
     return (
         <Portal>
