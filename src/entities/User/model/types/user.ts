@@ -1,8 +1,8 @@
 export interface User {
-    id: number
-    password: string
+    id: string;
+    username: string;
 }
 
-export interface userSchema {
-    authData?: User
+export interface UserSchema {
+    authData?: User;
 }

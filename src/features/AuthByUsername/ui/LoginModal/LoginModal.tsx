@@ -1,29 +1,20 @@
-import { classNames } from 'shared/lib/classNames/classNames'
-import { Modal } from 'shared/ui/Modal/Modal'
-import { LoginForm } from '../LoginForm/LoginForm'
-import cls from './LoginModal.module.scss'
+import { Modal } from 'shared/ui/Modal/Modal';
+import { classNames } from 'shared/lib/classNames/classNames';
+import { LoginForm } from '../LoginForm/LoginForm';
 
 interface LoginModalProps {
-    className?: string
-    isOpen: boolean
-    close: () => void
+    className?: string;
+    isOpen: boolean;
+    onClose: () => void;
 }
 
-export const LoginModal = (props: LoginModalProps) => {
-    const {
-        className,
-        isOpen,
-        close
-    } = props
-
-    return (
-        <Modal
-            isOpen={isOpen}
-            close={close}
-            className={classNames(cls.LoginForm, {}, [className])}
-            lazy
-        >
-            <LoginForm />
-        </Modal>
-    )
-}
+export const LoginModal = ({ className, isOpen, onClose }: LoginModalProps) => (
+    <Modal
+        className={classNames('', {}, [className])}
+        isOpen={isOpen}
+        onClose={onClose}
+        lazy
+    >
+        <LoginForm />
+    </Modal>
+);

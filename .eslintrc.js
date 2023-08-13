@@ -30,6 +30,7 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": "warn",
     "@typescript-eslint/no-floating-promises": "off",
     "@typescript-eslint/naming-convention": "off",
+    "react/display-name": "off",
     "i18next/no-literal-string": ['error', {
       markupOnly: true,
       ignoreAttribute: ['data-testid', 'to']
