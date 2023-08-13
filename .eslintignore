@@ -3,3 +3,11 @@
 /config/storybook/webpack.config.ts
 /scripts/generate-visual-json-report.js
 /json-server/index.js
+/webpack.config.ts
+/config/build/types/config.ts
+/config/build/loaders/buildCssLoader.ts
+/config/build/buildWebpackConfig.ts
+config/build/buildResolvers.ts
+/config/build/buildPlugins.ts
+/config/build/buildDevServer.ts
+/config/build/buildLoaders.ts
