@@ -13,7 +13,7 @@ import { StoreWithReducerManager } from 'app/providers/StoreProvider/config/Stat
 import { getLoginUsername } from 'features/AuthByUsername/model/selectors/getLoginUsername/getLoginUsername'
 import { getLoginPassword } from 'features/AuthByUsername/model/selectors/getLoginPassword/getLoginPassword'
 import { getLoginError } from 'features/AuthByUsername/model/selectors/getLoginError/getLoginError'
-import { getLoginisLoading } from 'features/AuthByUsername/model/selectors/getLoginisLoading/getLoginisLoading'
+import { getLoginIsLoading } from 'features/AuthByUsername/model/selectors/getLoginIsLoading/getLoginIsLoading'
 import { AsyncReducersLoader, ReducersList } from 'shared/lib/AsyncReducersLoader/AsyncReducersLoader'
 
 export interface LoginFormProps {
@@ -30,7 +30,7 @@ const LoginForm = memo(({ className }: LoginFormProps) => {
     const username = useSelector(getLoginUsername)
     const password = useSelector(getLoginPassword)
     const error = useSelector(getLoginError)
-    const isLoading = useSelector(getLoginisLoading)
+    const isLoading = useSelector(getLoginIsLoading)
 
     const onChangeUsername = useCallback((value: string) => {
         dispatch(loginActions.setUsername(value))
