@@ -2,7 +2,7 @@ import { classNames } from 'shared/lib/classNames/classNames'
 import { useTranslation } from 'react-i18next'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { Input } from 'shared/ui/Input/Input'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { memo, useCallback } from 'react'
 import { Text, TextTheme } from 'shared/ui/Text/Text'
 import { loginByUsername } from '../../model/services/loginByUsername/loginByUsername'
@@ -13,18 +13,20 @@ import { getLoginPassword } from 'features/AuthByUsername/model/selectors/getLog
 import { getLoginError } from 'features/AuthByUsername/model/selectors/getLoginError/getLoginError'
 import { getLoginIsLoading } from 'features/AuthByUsername/model/selectors/getLoginIsLoading/getLoginIsLoading'
 import { AsyncReducersLoader, type ReducersList } from 'shared/lib/AsyncReducersLoader/AsyncReducersLoader'
+import { useAppDispatch } from 'shared/lib/hooks/AppDispatch/AppDispatch'
 
 export interface LoginFormProps {
     className?: string;
+    onSuccessLogin?: () => void
 }
 
 const reducers: ReducersList = {
     loginForm: loginReducer
 }
 
-const LoginForm = memo(({ className }: LoginFormProps) => {
+const LoginForm = memo(({ className, onSuccessLogin }: LoginFormProps) => {
     const { t } = useTranslation()
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const username = useSelector(getLoginUsername)
     const password = useSelector(getLoginPassword)
     const error = useSelector(getLoginError)
@@ -38,9 +40,12 @@ const LoginForm = memo(({ className }: LoginFormProps) => {
         dispatch(loginActions.setPassword(value))
     }, [dispatch])
 
-    const onLoginClick = useCallback(() => {
-        dispatch(loginByUsername({ username, password }))
-    }, [dispatch, password, username])
+    const onLoginClick = useCallback(async () => {
+        const result = await dispatch(loginByUsername({ username, password }))
+        if (result.meta.requestStatus === 'fulfilled') {
+            onSuccessLogin()
+        }
+    }, [onSuccessLogin, dispatch, password, username])
 
     return (
         <AsyncReducersLoader
@@ -68,6 +73,7 @@ const LoginForm = memo(({ className }: LoginFormProps) => {
                 <Button
                     theme={ButtonTheme.OUTLINE}
                     className={cls.loginBtn}
+                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
                     onClick={onLoginClick}
                     disabled={isLoading}
                 >
