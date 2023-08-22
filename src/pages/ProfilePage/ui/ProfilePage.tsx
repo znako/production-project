@@ -1,20 +1,31 @@
-import { profileReducer } from 'entities/Profile'
-import React from 'react'
-import { AsyncReducersLoader } from 'shared/lib/AsyncReducersLoader/AsyncReducersLoader'
 import { classNames } from 'shared/lib/classNames/classNames'
+import { useTranslation } from 'react-i18next'
+import { DynamicModuleLoader, type ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
+import { fetchProfileData, ProfileCard, profileReducer } from 'entities/Profile'
+import { useEffect } from 'react'
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
+
+const reducers: ReducersList = {
+    profile: profileReducer
+}
 
 interface ProfilePageProps {
-    className?: string
+    className?: string;
 }
 
 const ProfilePage = ({ className }: ProfilePageProps) => {
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(fetchProfileData())
+    }, [dispatch])
+
     return (
-        // eslint-disable-next-line i18next/no-literal-string
-        <AsyncReducersLoader reducers={{ profile: profileReducer }} removeAfterUnMount={true}>
+        <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
             <div className={classNames('', {}, [className])}>
-                ProfilePage
+                <ProfileCard />
             </div>
-        </AsyncReducersLoader>
+        </DynamicModuleLoader>
     )
 }
 

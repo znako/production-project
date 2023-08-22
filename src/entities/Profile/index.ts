@@ -1,9 +1,17 @@
-import { profileActions, profileReducer } from './model/slice/profileSlice'
-import { type ProfileSchema, type ProfileType } from './model/types/profile'
+export type {
+    Profile,
+    ProfileSchema
+} from './model/types/profile'
 
 export {
-    type ProfileSchema,
-    type ProfileType,
     profileActions,
     profileReducer
-}
+} from './model/slice/profileSlice'
+
+export {
+    fetchProfileData
+} from './model/services/fetchProfileData/fetchProfileData'
+
+export {
+    ProfileCard
+} from './ui/ProfileCard/ProfileCard'

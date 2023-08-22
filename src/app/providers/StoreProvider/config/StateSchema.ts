@@ -1,27 +1,44 @@
-import { type AnyAction, type CombinedState, type EnhancedStore, type Reducer, type ReducersMapObject } from '@reduxjs/toolkit'
 import { type CounterSchema } from 'entities/Counter'
-import { type ProfileSchema } from 'entities/Profile'
 import { type UserSchema } from 'entities/User'
 import { type LoginSchema } from 'features/AuthByUsername'
+import {
+    type AnyAction, type EnhancedStore, type Reducer, type ReducersMapObject
+} from '@reduxjs/toolkit'
+import { type CombinedState, Dispatch } from 'redux'
+import { type ProfileSchema } from 'entities/Profile'
+import { type AxiosInstance } from 'axios'
+import { type To } from 'history'
+import { type NavigateOptions } from 'react-router'
+import { AppDispatch } from 'app/providers/StoreProvider'
 
 export interface StateSchema {
     counter: CounterSchema;
     user: UserSchema;
 
-    // async
+    // Асинхронные редюсеры
     loginForm?: LoginSchema;
     profile?: ProfileSchema;
 }
 
-export type keyOfStateSchema = keyof StateSchema
+export type StateSchemaKey = keyof StateSchema
 
-export interface reducerManagerType {
-    getReducerMap: () => ReducersMapObject<StateSchema>
-    reduce: (state: StateSchema, action: AnyAction) => CombinedState<StateSchema>
-    add: (key: keyOfStateSchema, reducer: Reducer) => void
-    remove: (key: keyOfStateSchema) => void
+export interface ReducerManager {
+    getReducerMap: () => ReducersMapObject<StateSchema>;
+    reduce: (state: StateSchema, action: AnyAction) => CombinedState<StateSchema>;
+    add: (key: StateSchemaKey, reducer: Reducer) => void;
+    remove: (key: StateSchemaKey) => void;
 }
 
-export interface StoreWithReducerManager extends EnhancedStore<StateSchema> {
-    reducerManager: reducerManagerType
+export interface ReduxStoreWithManager extends EnhancedStore<StateSchema> {
+    reducerManager: ReducerManager;
+}
+
+export interface ThunkExtraArg {
+    api: AxiosInstance;
+    navigate?: (to: To, options?: NavigateOptions) => void,
+}
+
+export interface ThunkConfig<T> {
+    rejectValue: T;
+    extra: ThunkExtraArg;
 }

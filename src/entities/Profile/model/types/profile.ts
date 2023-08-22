@@ -1,19 +1,19 @@
-import { type Country, type Currency } from 'shared/const/profile'
+import { type Country, type Currency } from 'shared/const/common'
 
-export interface ProfileType {
-    'first': string
-    'lastname': string
-    'age': number
-    'currency': Currency
-    'country': Country
-    'city': string
-    'username': string
-    'avatar': string
+export interface Profile {
+    first: string;
+    lastname: string;
+    age: 22,
+    currency: Currency,
+    country: Country;
+    city: string,
+    username: string;
+    avatar: string;
 }
 
 export interface ProfileSchema {
-    data: ProfileType
-    isLoading: boolean
-    error: string
-    readOnly: boolean
+    data?: Profile;
+    isLoading: boolean;
+    error?: string;
+    readonly: boolean;
 }
