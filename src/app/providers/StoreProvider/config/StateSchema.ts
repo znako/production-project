@@ -4,12 +4,11 @@ import { type LoginSchema } from 'features/AuthByUsername'
 import {
     type AnyAction, type EnhancedStore, type Reducer, type ReducersMapObject
 } from '@reduxjs/toolkit'
-import { type CombinedState, Dispatch } from 'redux'
+import { type CombinedState } from 'redux'
 import { type ProfileSchema } from 'entities/Profile'
 import { type AxiosInstance } from 'axios'
 import { type To } from 'history'
 import { type NavigateOptions } from 'react-router'
-import { AppDispatch } from 'app/providers/StoreProvider'
 
 export interface StateSchema {
     counter: CounterSchema;
@@ -41,4 +40,5 @@ export interface ThunkExtraArg {
 export interface ThunkConfig<T> {
     rejectValue: T;
     extra: ThunkExtraArg;
+    state: StateSchema
 }

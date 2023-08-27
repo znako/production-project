@@ -4,14 +4,22 @@ import { memo } from 'react'
 import { classNames } from 'shared/lib/classNames/classNames'
 import cls from './SidebarItem.module.scss'
 import { type SidebarItemType } from '../../model/items'
+import { useSelector } from 'react-redux'
+import { getUserAuthData } from 'entities/User'
 
 interface SidebarItemProps {
     item: SidebarItemType;
     collapsed: boolean;
+    authOnly?: boolean
 }
 
-export const SidebarItem = memo(({ item, collapsed }: SidebarItemProps) => {
+export const SidebarItem = memo(({ item, collapsed, authOnly }: SidebarItemProps) => {
     const { t } = useTranslation()
+    const authData = useSelector(getUserAuthData)
+
+    if (authOnly && !authData) {
+        return null
+    }
 
     return (
         <AppLink
