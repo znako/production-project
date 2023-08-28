@@ -29,6 +29,7 @@ export const profileSlice = createSlice({
         onCancelEdit: (state) => {
             state.readonly = true
             state.form = state.data
+            state.errorsList = undefined
         }
     },
     extraReducers: (builder) => {
@@ -50,8 +51,8 @@ export const profileSlice = createSlice({
                 state.error = action.payload
             })
             .addCase(updateProfileData.pending, (state) => {
-                state.error = undefined
                 state.isLoading = true
+                state.errorsList = undefined
             })
             .addCase(updateProfileData.fulfilled, (
                 state,
@@ -61,10 +62,11 @@ export const profileSlice = createSlice({
                 state.isLoading = false
                 state.data = action.payload
                 state.form = action.payload
+                state.errorsList = undefined
             })
             .addCase(updateProfileData.rejected, (state, action) => {
                 state.isLoading = false
-                state.error = action.payload
+                state.errorsList = action.payload
             })
     }
 })
