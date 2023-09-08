@@ -1,5 +1,6 @@
-import { getProfileReadonly, profileActions } from 'entities/Profile'
+import { getProfileData, getProfileReadonly, profileActions } from 'entities/Profile'
 import { updateProfileData } from 'entities/Profile/'
+import { getUserAuthData } from 'entities/User'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -21,6 +22,9 @@ export const ProfilePageHeader = (props: ProfilePageHeaderProps) => {
     const { t } = useTranslation('/profile')
     const readonly = useSelector(getProfileReadonly)
     const dispatch = useAppDispatch()
+    const authData = useSelector(getUserAuthData)
+    const profileData = useSelector(getProfileData)
+    const isEdit = authData?.id === profileData?.id
 
     const onClickEditBtn = useCallback(
         () => {
@@ -46,7 +50,10 @@ export const ProfilePageHeader = (props: ProfilePageHeaderProps) => {
     return (
         <div className={classNames(cls.ProfilePageHeader, {}, [className])}>
             <Text title={t('Профиль')} />
-            {readonly
+            {
+                isEdit &&
+                <>
+                {readonly
                 ? <Button
                     className={cls.editBtn}
                     theme={ButtonTheme.OUTLINE}
@@ -71,6 +78,9 @@ export const ProfilePageHeader = (props: ProfilePageHeaderProps) => {
                     </Button>
                 </>
             }
+                </>
+            }
+            
         </div>
     )
 }

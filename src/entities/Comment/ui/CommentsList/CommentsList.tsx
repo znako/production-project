@@ -8,7 +8,7 @@ import { CommentCard } from '../CommentCard/CommentCard';
 
 interface CommentsListProps {
     className?: string
-    comments: Comment[]
+    comments?: Comment[]
     isLoading?: boolean
 }
 
@@ -21,10 +21,20 @@ export const CommentsList = (props: CommentsListProps) => {
 
     const { t } = useTranslation()
 
+    if (isLoading) {
+        return (
+            <div className={classNames(cls.CommentList, {}, [className])}>
+                <CommentCard isLoading={true}/>
+                <CommentCard isLoading={true}/>
+                <CommentCard isLoading={true}/>
+            </div>
+        )
+    }
+
     return (
         <div className={classNames(cls.CommentList, {}, [className])}>
             {
-                comments.length
+                comments?.length
                 ? comments.map(comment => (
                     <CommentCard isLoading={isLoading} comment={comment} className={cls.comment} key={comment.id}/>
                 ))

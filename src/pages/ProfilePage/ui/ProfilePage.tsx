@@ -9,6 +9,8 @@ import { type Currency } from 'entities/CurrencySelect'
 import { type Country } from 'entities/CountrySelect'
 import { Text, TextTheme } from 'shared/ui/Text/Text'
 import { useTranslation } from 'react-i18next'
+import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect'
+import { useParams } from 'react-router-dom'
 
 const reducers: ReducersList = {
     profile: profileReducer
@@ -26,6 +28,7 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
     const error = useSelector(getProfileError)
     const readonly = useSelector(getProfileReadonly)
     const errors = useSelector(getProfileErrorsLift)
+    const { id } = useParams<{id: string}>()
 
     const ValidateProfileErrorsTranslate: Record<ValidateProfileEror, string> = {
         [ValidateProfileEror.INCORRECT_USER_DATA]: t('Поля имя, фамилия и username не должны быть пустыми!'),
@@ -35,12 +38,12 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
     }
 
     const dispatch = useAppDispatch()
-
-    useEffect(() => {
-        if (__PROJECT__ !== 'storybook') {
-            dispatch(fetchProfileData())
-        }
-    }, [dispatch])
+    
+    if (id) {
+        useInitialEffect(
+                () => dispatch(fetchProfileData(id))
+        )
+    }
 
     const onEditName = useCallback(
         (value?: string) => {

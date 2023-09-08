@@ -5,7 +5,6 @@ import { RoutePath } from 'shared/config/routeConfig/routeConfig'
 
 export const RequireAuth = ({children}: {children: JSX.Element}) => {
     const authData = useSelector(getUserAuthData)
-    console.log(authData);
     const location = useLocation()
 
     if(!authData) {
