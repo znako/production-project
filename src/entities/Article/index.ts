@@ -3,6 +3,7 @@ import { ArticleDetails } from './ui/ArticleDetails/ArticleDetails';
 import {ArticleSchema} from './model/types/articleSchema';
 import { getArticleData, getArticleError, getArticleIsLoading } from './model/selectors/getArticle';
 import { articleDetailsActions, articleDetailsReducer, ArticleDetailsSlice } from './model/slice/articleSlice';
+import { ArticlesList } from './ui/ArticlesList/ArticlesList';
 
 export {
     Article,
@@ -22,4 +23,8 @@ export { getArticleIsLoading,
 export { ArticleDetailsSlice,
     articleDetailsActions,
     articleDetailsReducer
+}
+
+export {
+    ArticlesList
 }
