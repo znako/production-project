@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { classNames } from "shared/lib/classNames/classNames"
 import { DynamicModuleLoader, ReducersList } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader";
 import cls from './ArticlesPage.module.scss';
-import { getArticlesPageError, getArticlesPageHasMore, getArticlesPageIsLoading, getArticlesPagePage, getArticlesPageView } from "pages/ArticlesPage/model/selectors/getArticlesPage";
+import { getArticlesPageError, getArticlesPageHasMore, getArticlesPageInited, getArticlesPageIsLoading, getArticlesPagePage, getArticlesPageView } from "pages/ArticlesPage/model/selectors/getArticlesPage";
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { useInitialEffect } from "shared/lib/hooks/useInitialEffect/useInitialEffect";
 import { fetchArticlesPage } from "pages/ArticlesPage/model/services/fetchArticlesPage/fetchArticlesPage";
@@ -15,6 +15,7 @@ import { useCallback } from "react";
 import { Page } from "shared/ui/Page/Page";
 import { fetchNextArticles } from "pages/ArticlesPage/model/services/fetchNextArticles/fetchNextArticles";
 import { Text, TextAlign } from "shared/ui/Text/Text";
+import { fetchInitArticles } from "pages/ArticlesPage/model/services/fetchInitArticles/fetchInitArticles";
 
 interface ArticlesPageProps {
     className?: string
@@ -34,13 +35,11 @@ const ArticlesPage = (props: ArticlesPageProps) => {
     const error = useSelector(getArticlesPageError)
     const isLoading = useSelector(getArticlesPageIsLoading)
     const view = useSelector(getArticlesPageView)
+    const inited = useSelector(getArticlesPageInited)
     const dispatch = useAppDispatch()
 
     useInitialEffect(() => {
-      dispatch(ArticlesPageActions.initState())
-      dispatch(fetchArticlesPage({
-        page: 1
-      }))
+      dispatch(fetchInitArticles())
     })
 
     const onSetView = useCallback(
@@ -59,7 +58,7 @@ const ArticlesPage = (props: ArticlesPageProps) => {
     
     if (error) {
       return (
-        <DynamicModuleLoader reducers={reducers}>
+        <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
           <Page className={classNames(cls.ArticlesPage, {}, [className])}>
             <Text title={t('Ошибка в загрузке статей')} align={TextAlign.CENTER} />
           </Page>
@@ -70,7 +69,7 @@ const ArticlesPage = (props: ArticlesPageProps) => {
     
 
     return (
-      <DynamicModuleLoader reducers={reducers}>
+      <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
           <Page onObserv={onObserv} className={classNames(cls.ArticlesPage, {}, [className])}>
               <ArticleViewSelector view={view} setView={onSetView} />
               <ArticlesList
