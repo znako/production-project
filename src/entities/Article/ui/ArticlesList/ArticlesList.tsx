@@ -30,20 +30,17 @@ export const ArticlesList = (props: ArticlesListProps) => {
         />
     )
 
-    if (isLoading) {
-        return (
-            <div className={classNames(cls.ArticlesList, {}, [className, cls[view]])}>
-                {new Array(view === ArticleView.BIG ? 3 : 9).fill(0).map((_, i) => {
-                    return <ArticleListItemSkeleton view={view} key={i} className={cls.card} />
-                })}
-            </div>
-        )
-    }
     return (
         <div className={classNames(cls.ArticlesList, {}, [className, cls[view]])}>
             {articles.length > 0 ?
                 articles.map(renderArticles)
                 : null
+            }
+            {
+                isLoading && 
+                new Array(view === ArticleView.BIG ? 3 : 9).fill(0).map((_, i) => {
+                    return <ArticleListItemSkeleton view={view} key={i} className={cls.card} />
+                })
             }
         </div>
     )

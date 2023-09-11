@@ -17,6 +17,7 @@ import { useCallback } from "react";
 import { AddCommentForm } from "features/AddCommentForm";
 import { Button } from "shared/ui/Button/Button";
 import { RoutePath } from "shared/config/routeConfig/routeConfig";
+import { Page } from "shared/ui/Page/Page";
 
 interface ArticleDetailsPageProps {
     className?: string
@@ -52,9 +53,9 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
 
     if (!id) {
         return (
-            <div className={classNames(cls.ArticlesPage, {}, [className])}>
+            <Page className={classNames(cls.ArticlesPage, {}, [className])}>
                 {t('Статья не найдена')}
-            </div>
+            </Page>
         )
     }
 
@@ -68,7 +69,7 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
 
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
-            <div className={classNames(cls.ArticleDetailsPage, {}, [className])}>
+            <Page className={classNames(cls.ArticleDetailsPage, {}, [className])}>
                 <Button onClick={backToList} >
                     {t('Назад к списку статей')}
                 </Button>
@@ -76,7 +77,7 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
                 <Text title={t('Комментарии')} className={cls.commentsTitle}/>
                 <AddCommentForm onSendComment={onSendComment}/>
                 <CommentsList isLoading={isLoading} comments={comments} />
-            </div>
+            </Page>
         </DynamicModuleLoader>
     )
 }

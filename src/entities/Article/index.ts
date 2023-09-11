@@ -1,4 +1,4 @@
-import {Article, ArticleBlocksType} from './model/types/article';  
+import {Article, ArticleBlocksType, ArticleView} from './model/types/article';  
 import { ArticleDetails } from './ui/ArticleDetails/ArticleDetails';
 import {ArticleSchema} from './model/types/articleSchema';
 import { getArticleData, getArticleError, getArticleIsLoading } from './model/selectors/getArticle';
@@ -26,5 +26,6 @@ export { ArticleDetailsSlice,
 }
 
 export {
-    ArticlesList
+    ArticlesList,
+    ArticleView
 }
