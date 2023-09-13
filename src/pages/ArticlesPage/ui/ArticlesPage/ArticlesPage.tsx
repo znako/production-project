@@ -12,7 +12,7 @@ import { useInitialEffect } from "shared/lib/hooks/useInitialEffect/useInitialEf
 import { fetchArticlesPage } from "pages/ArticlesPage/model/services/fetchArticlesPage/fetchArticlesPage";
 import { ArticleViewSelector } from "entities/Article/ui/ArticleViewSelector/ArticleViewSelector";
 import { useCallback } from "react";
-import { Page } from "shared/ui/Page/Page";
+import { Page } from "widgets/Page/Page";
 import { fetchNextArticles } from "pages/ArticlesPage/model/services/fetchNextArticles/fetchNextArticles";
 import { Text, TextAlign } from "shared/ui/Text/Text";
 import { fetchInitArticles } from "pages/ArticlesPage/model/services/fetchInitArticles/fetchInitArticles";

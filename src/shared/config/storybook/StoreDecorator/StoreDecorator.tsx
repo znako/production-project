@@ -4,7 +4,7 @@ import { loginReducer } from 'features/AuthByUsername/model/slice/loginSlice'
 import { profileReducer } from 'entities/Profile'
 import { type ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
 import { articleDetailsReducer } from 'entities/Article'
-import { AddCommentFormReducers } from 'features/AddCommentForm/model/slice/addCommentForm'
+import { AddCommentFormReducers } from 'features/AddCommentForm/model/slice/addCommentFormSlice'
 import { articleDetailsCommentsReducer } from 'pages/ArticleDetailsPage '
 
 const defaultAsyncReducers: ReducersList = {

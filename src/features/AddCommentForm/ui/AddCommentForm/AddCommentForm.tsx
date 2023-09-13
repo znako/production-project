@@ -1,5 +1,5 @@
 import { getAddCommentFormError, getAddCommentFormText } from "../../model/selectors/addCommentForm";
-import { AddCommentFormActions, AddCommentFormReducers } from "../../model/slice/addCommentForm";
+import { AddCommentFormActions, AddCommentFormReducers } from "../../model/slice/addCommentFormSlice";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
