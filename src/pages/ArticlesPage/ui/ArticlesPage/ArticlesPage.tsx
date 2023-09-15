@@ -62,6 +62,15 @@ const ArticlesPage = (props: ArticlesPageProps) => {
         </DynamicModuleLoader>
       )
     }
+
+    if (!isLoading && !articles.length) {
+        return <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
+                    <Page onObserv={onObserv} className={classNames(cls.ArticlesPage, {}, [className])}>
+                        <ArticlesPageFilters />
+                        <Text title={t('Статьи не найдены')} className={cls.notFoundText}/>
+                    </Page>
+                </DynamicModuleLoader>
+    }
     
 
     return (

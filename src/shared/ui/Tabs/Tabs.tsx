@@ -5,7 +5,7 @@ import { Card, CardTheme } from '../Card/Card';
 import { ArticleTypes } from 'entities/Article';
 
 export interface Tab {
-    value: ArticleTypes
+    value: string
     content: string
 }
 

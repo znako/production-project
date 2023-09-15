@@ -36,7 +36,7 @@ export const ArticleTypesTabs = memo(({className, onClickTab}: ArticleTypesTabsP
     const onClickTabHandler = useCallback(
       (tab: Tab) => {
         if (tab.value !== articleType) {
-            onClickTab(tab.value)
+            onClickTab(tab.value as ArticleTypes)
         }
       },
       [onClickTab, articleType],
