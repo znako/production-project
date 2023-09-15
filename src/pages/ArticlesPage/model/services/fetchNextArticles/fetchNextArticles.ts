@@ -11,7 +11,7 @@ export const fetchNextArticles = createAsyncThunk<
     >(
         'articlesPage/fetchNextArticles',
         async (_, thunkApi) => {
-            const { extra, rejectWithValue, getState, dispatch } = thunkApi;
+            const { getState, dispatch } = thunkApi;
 
             const limit = getArticlesPageLimit(getState())
             const page = getArticlesPagePage(getState())
@@ -20,7 +20,7 @@ export const fetchNextArticles = createAsyncThunk<
 
             if (hasMore && !isLoading){
                 dispatch(ArticlesPageActions.setPage(page + 1))
-                dispatch(fetchArticlesPage({page: page + 1}))
+                dispatch(fetchArticlesPage({}))
             }
         },
     );

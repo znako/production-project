@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { classNames } from 'shared/lib/classNames/classNames'
-import { type OptionsList, Select } from 'shared/ui/Select/Select'
+import { type SelectOptions, Select } from 'shared/ui/Select/Select'
 import { Currency } from '../model/types/currency'
 
 interface CurrencySelectProps {
@@ -11,7 +11,7 @@ interface CurrencySelectProps {
     readonly?: boolean
 }
 
-const options: OptionsList[] = [
+const options: SelectOptions<Currency>[] = [
     { value: Currency.RUB, content: Currency.RUB },
     { value: Currency.USD, content: Currency.USD },
     { value: Currency.EUR, content: Currency.EUR }

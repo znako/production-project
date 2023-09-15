@@ -51,7 +51,7 @@ export const Page = ({className, children, onObserv}: PageProps) => {
             onScroll={onScroll}
         >
             {children}
-            <div ref={targetRef} />
+            {onObserv ? <div className={cls.trigger} ref={targetRef} /> : null}
         </section>
     )
 }

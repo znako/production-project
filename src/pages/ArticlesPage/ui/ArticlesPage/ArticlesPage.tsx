@@ -16,6 +16,8 @@ import { Page } from "widgets/Page/Page";
 import { fetchNextArticles } from "pages/ArticlesPage/model/services/fetchNextArticles/fetchNextArticles";
 import { Text, TextAlign } from "shared/ui/Text/Text";
 import { fetchInitArticles } from "pages/ArticlesPage/model/services/fetchInitArticles/fetchInitArticles";
+import { ArticlesPageFilters } from "../ArticlesPageFilters/ArticlesPageFilters";
+import { useSearchParams } from "react-router-dom";
 
 interface ArticlesPageProps {
     className?: string
@@ -35,20 +37,15 @@ const ArticlesPage = (props: ArticlesPageProps) => {
     const error = useSelector(getArticlesPageError)
     const isLoading = useSelector(getArticlesPageIsLoading)
     const view = useSelector(getArticlesPageView)
-    const inited = useSelector(getArticlesPageInited)
+    const [searchParams] = useSearchParams()
+    
     const dispatch = useAppDispatch()
 
     useInitialEffect(() => {
-      dispatch(fetchInitArticles())
+      dispatch(fetchInitArticles(searchParams))
     })
 
-    const onSetView = useCallback(
-      (view: ArticleView) => {
-        dispatch(ArticlesPageActions.setView(view))
-      },
-      [dispatch],
-    )
-
+    
     const onObserv = useCallback(
       () => {
         dispatch(fetchNextArticles())
@@ -63,7 +60,6 @@ const ArticlesPage = (props: ArticlesPageProps) => {
             <Text title={t('Ошибка в загрузке статей')} align={TextAlign.CENTER} />
           </Page>
         </DynamicModuleLoader>
-        
       )
     }
     
@@ -71,11 +67,12 @@ const ArticlesPage = (props: ArticlesPageProps) => {
     return (
       <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
           <Page onObserv={onObserv} className={classNames(cls.ArticlesPage, {}, [className])}>
-              <ArticleViewSelector view={view} setView={onSetView} />
+              <ArticlesPageFilters />
               <ArticlesList
                 isLoading={isLoading}
                 view={view}
                 articles={articles}
+                className={cls.articlesList}
               />
           </Page>
         </DynamicModuleLoader>

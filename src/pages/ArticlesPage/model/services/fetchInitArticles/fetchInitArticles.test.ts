@@ -21,7 +21,7 @@ describe('fetchInitArticles.test', () => {
             }
         })
 
-        await thunk.callThunk()
+        await thunk.callThunk(new URLSearchParams())
         
         expect(thunk.dispatch).toBeCalledTimes(4)
         expect(fetchArticlesPage).toBeCalledWith({page: 1})
@@ -42,7 +42,7 @@ describe('fetchInitArticles.test', () => {
             }
         })
 
-        await thunk.callThunk()
+        await thunk.callThunk(new URLSearchParams())
         
         expect(thunk.dispatch).toBeCalledTimes(2)
         expect(fetchArticlesPage).not.toHaveBeenCalled()

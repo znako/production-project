@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { classNames } from 'shared/lib/classNames/classNames'
-import { type OptionsList, Select } from 'shared/ui/Select/Select'
+import { type SelectOptions, Select } from 'shared/ui/Select/Select'
 import { Country } from '../model/types/country'
 
 interface CountrySelectProps {
@@ -11,7 +11,7 @@ interface CountrySelectProps {
     readonly?: boolean
 }
 
-const options: OptionsList[] = [
+const options: SelectOptions<Country>[] = [
     { value: Country.Russia, content: Country.Russia },
     { value: Country.Belarus, content: Country.Belarus },
     { value: Country.Ukraine, content: Country.Ukraine },
