@@ -7,13 +7,11 @@ import {
 import { type CombinedState } from 'redux'
 import { type ProfileSchema } from 'entities/Profile'
 import { type AxiosInstance } from 'axios'
-import { type To } from 'history'
-import { type NavigateOptions } from 'react-router'
 import { ArticleSchema } from 'entities/Article'
-import { ArticleDetailsCommentsSchema } from 'pages/ArticleDetailsPage '
 import { AddCommentFormSchema } from 'features/AddCommentForm'
 import { ArticlesPageSchema } from 'pages/ArticlesPage'
 import { ScrollRestoreSchema } from 'features/ScrollRestore'
+import { ArticleDetailsSchema } from 'pages/ArticleDetailsPage/'
 
 export interface StateSchema {
     counter: CounterSchema;
@@ -24,9 +22,9 @@ export interface StateSchema {
     loginForm?: LoginSchema;
     profile?: ProfileSchema;
     article?: ArticleSchema;
-    articleDetailsComments?: ArticleDetailsCommentsSchema;
+    articleDetails?: ArticleDetailsSchema;
     addCommentForm?: AddCommentFormSchema;
-    articlesPage?: ArticlesPageSchema;
+    articlesPage?: ArticlesPageSchema; 
 }
 
 export type StateSchemaKey = keyof StateSchema

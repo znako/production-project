@@ -1,4 +1,5 @@
 import { Article } from 'entities/Article'
+import { HTMLAttributeAnchorTarget } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames'
 import { Disabled } from 'shared/ui/Button/Button.stories';
 import { ArticleView } from '../../model/types/article'
@@ -11,6 +12,7 @@ interface ArticlesListProps {
     articles: Article[]
     view?: ArticleView
     isLoading?: boolean
+    target?: HTMLAttributeAnchorTarget
 }
 
 export const ArticlesList = (props: ArticlesListProps) => {
@@ -18,7 +20,8 @@ export const ArticlesList = (props: ArticlesListProps) => {
         className,
         articles,
         view = ArticleView.SMALL,
-        isLoading
+        isLoading,
+        target
     } = props
 
     const renderArticles = (article: Article) => (
@@ -27,6 +30,7 @@ export const ArticlesList = (props: ArticlesListProps) => {
             article={article}
             key={article.id}
             className={cls.card}
+            target={target}
         />
     )
 
