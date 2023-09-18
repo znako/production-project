@@ -1,5 +1,4 @@
 import { configureStore, type ReducersMapObject } from '@reduxjs/toolkit'
-import { counterReducer } from 'entities/Counter'
 import { userReducer } from 'entities/User'
 import { $api } from 'shared/api/api'
 import { type To } from 'history'
@@ -15,7 +14,6 @@ export function createReduxStore (
 ) {
     const rootReducers: ReducersMapObject<StateSchema> = {
         ...asyncReducers,
-        counter: counterReducer,
         user: userReducer,
         scrollRestore: scrollRestoreReducer
     }

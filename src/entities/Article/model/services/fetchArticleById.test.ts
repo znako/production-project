@@ -1,6 +1,6 @@
 import { Country } from 'entities/CountrySelect'
 import { Currency } from 'entities/CurrencySelect'
-import { TestAsyncThunk } from 'shared/lib/tests/TestAsyncThunk/TestAsyncThunk'
+import { TestAsyncThunk } from 'shared/lib/tests/testAsyncThunk/testAsyncThunk'
 import { ArticleBlocksType, ArticleTypes } from '../types/article'
 import { fetchArticleById } from './fetchArticleById'
 

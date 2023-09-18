@@ -1,5 +1,5 @@
 import { ArticleView } from 'entities/Article'
-import { TestAsyncThunk } from 'shared/lib/tests/TestAsyncThunk/TestAsyncThunk'
+import { TestAsyncThunk } from 'shared/lib/tests/testAsyncThunk/testAsyncThunk'
 import { fetchArticlesPage } from '../fetchArticlesPage/fetchArticlesPage'
 import { fetchNextArticles } from './fetchNextArticles'
 
