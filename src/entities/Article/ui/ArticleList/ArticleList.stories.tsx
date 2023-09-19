@@ -2,7 +2,7 @@ import React from 'react'
 import { type ComponentMeta, type ComponentStory } from '@storybook/react'
 import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator'
 import { Theme } from 'app/providers/ThemeProvider'
-import { ArticlesList } from './ArticlesList'
+import { ArticleList } from './ArticleList'
 import { Currency } from 'entities/CurrencySelect'
 import { Country } from 'entities/CountrySelect'
 import { Article } from 'entities/Article'
@@ -86,14 +86,14 @@ const article = {
 } as Article
 
 export default {
-    title: 'entities/ArticlesList',
-    component: ArticlesList,
+    title: 'entities/ArticleList',
+    component: ArticleList,
     argTypes: {
         backgroundColor: { control: 'color' }
     }
-} as ComponentMeta<typeof ArticlesList>
+} as ComponentMeta<typeof ArticleList>
 
-const Template: ComponentStory<typeof ArticlesList> = (args) => <ArticlesList {...args} />
+const Template: ComponentStory<typeof ArticleList> = (args) => <ArticleList {...args} />
 
 export const PrimarySmall = Template.bind({})
 PrimarySmall.args = {

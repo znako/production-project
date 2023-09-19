@@ -1,7 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { memo, useCallback } from 'react';
-import { ArticleDetails, ArticlesList } from 'entities/Article';
+import { ArticleDetails, ArticleList } from 'entities/Article';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Text, TextSize } from 'shared/ui/Text/Text';
 import { CommentsList } from 'entities/Comment';
@@ -72,7 +72,7 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
                     className={cls.moduleTitle}
                     title={t('Рекомендуем')}
                 />
-                <ArticlesList
+                <ArticleList
                     articles={recommendations}
                     isLoading={recommendationsIsLoading}
                     className={cls.recommendations}

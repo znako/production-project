@@ -17,6 +17,8 @@ interface PageProps {
     onObserv?: () => void
 }
 
+export const PAGE_ID = 'PAGE_ID'
+
 export const Page = ({className, children, onObserv}: PageProps) => {
     const wrapperRef = useRef() as MutableRefObject<HTMLDivElement>
     const targetRef = useRef() as MutableRefObject<HTMLDivElement>
@@ -49,6 +51,7 @@ export const Page = ({className, children, onObserv}: PageProps) => {
             ref={wrapperRef}
             className={classNames(cls.Page, {}, [className])}
             onScroll={onScroll}
+            id={PAGE_ID}
         >
             {children}
             {onObserv ? <div className={cls.trigger} ref={targetRef} /> : null}

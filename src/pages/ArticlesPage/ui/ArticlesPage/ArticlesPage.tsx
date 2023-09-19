@@ -1,4 +1,4 @@
-import { Article, articleDetailsActions, ArticlesList } from "entities/Article";
+import { Article, articleDetailsActions, ArticleList } from "entities/Article";
 import { ArticleView } from "entities/Article/";
 import { ArticlesPageActions, ArticlesPageReducer, getArticles } from "../../model/slice/ArticlesPageSlice";
 import { useTranslation } from "react-i18next";
@@ -77,7 +77,7 @@ const ArticlesPage = (props: ArticlesPageProps) => {
       <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
           <Page onObserv={onObserv} className={classNames(cls.ArticlesPage, {}, [className])}>
               <ArticlesPageFilters />
-              <ArticlesList
+              <ArticleList
                 isLoading={isLoading}
                 view={view}
                 articles={articles}
