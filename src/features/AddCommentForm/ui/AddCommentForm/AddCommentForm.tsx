@@ -1,14 +1,15 @@
-import { getAddCommentFormError, getAddCommentFormText } from "../../model/selectors/addCommentForm";
-import { AddCommentFormActions, AddCommentFormReducers } from "../../model/slice/addCommentFormSlice";
-import { useCallback } from "react";
-import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { classNames } from "shared/lib/classNames/classNames"
-import { DynamicModuleLoader, ReducersList } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader";
-import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch";
-import { Button } from "shared/ui/Button/Button";
-import { Input } from "shared/ui/Input/Input";
-import cls from './AddCommentForm.module.scss';
+import { getAddCommentFormError, getAddCommentFormText } from '../../model/selectors/addCommentForm'
+import { AddCommentFormActions, AddCommentFormReducers } from '../../model/slice/addCommentFormSlice'
+import { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import { classNames } from 'shared/lib/classNames/classNames'
+import { DynamicModuleLoader, type ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
+import { Button } from 'shared/ui/Button/Button'
+import { Input } from 'shared/ui/Input/Input'
+import cls from './AddCommentForm.module.scss'
+import { HStack } from 'shared/ui/Stack'
 
 interface AddCommentFormProps {
     className?: string
@@ -31,24 +32,27 @@ const AddCommentForm = (props: AddCommentFormProps) => {
     const dispatch = useAppDispatch()
 
     const onChangeHandler = useCallback(
-      (value: string) => {
-        dispatch(AddCommentFormActions.setText(value))
-      },
-      [dispatch],
+        (value: string) => {
+            dispatch(AddCommentFormActions.setText(value))
+        },
+        [dispatch]
     )
 
     const onClickHandler = useCallback(
-      () => {
-          onSendComment(text || '')
-          onChangeHandler('')
-      },
-      [dispatch, text, onSendComment, onChangeHandler],
+        () => {
+            onSendComment(text || '')
+            onChangeHandler('')
+        },
+        [dispatch, text, onSendComment, onChangeHandler]
     )
-    
 
     return (
         <DynamicModuleLoader reducers={reducers} >
-            <div className={classNames(cls.AddCommentForm, {}, [className])}>
+            <HStack
+                justify='between'
+                max
+                className={classNames(cls.AddCommentForm, {}, [className])}
+            >
                 <Input
                     className={cls.input}
                     value={text}
@@ -60,7 +64,7 @@ const AddCommentForm = (props: AddCommentFormProps) => {
                 >
                     {t('Отправить')}
                 </Button>
-            </div>
+            </HStack>
         </DynamicModuleLoader>
     )
 }

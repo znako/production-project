@@ -19,7 +19,7 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module"
   },
-  plugins: ["react", "i18next"],
+  plugins: ["react", "i18next", "znako-plugin"],
   rules: {
     "@typescript-eslint/indent": [2, 4],
     "@typescript-eslint/consistent-type-assertions": "off",
@@ -33,10 +33,11 @@ module.exports = {
     "react/display-name": "off",
     "i18next/no-literal-string": ['error', {
       markupOnly: true,
-      ignoreAttribute: ['data-testid', 'to']
+      ignoreAttribute: ['data-testid', 'to', "justify", "align", "direction", "gap"]
     }],
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "error"
+    "react-hooks/exhaustive-deps": "error",
+    "znako-plugin/path-checker": "error"
   },
   ignorePatterns: ['.eslintrc.js'],
   overrides: [{

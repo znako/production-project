@@ -25,4 +25,3 @@ Primary.args = {
     
     const Template: ComponentStory<typeof Code> = (args) `
 }
-

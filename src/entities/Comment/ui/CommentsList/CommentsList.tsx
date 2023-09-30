@@ -1,10 +1,9 @@
-import { Comment } from '../../model/types/comment'
-import React from 'react'
+import { type Comment } from '../../model/types/comment'
 import { classNames } from 'shared/lib/classNames/classNames'
-import cls from './CommentsList.module.scss';
-import { Text } from 'shared/ui/Text/Text';
-import { useTranslation } from 'react-i18next';
-import { CommentCard } from '../CommentCard/CommentCard';
+import { Text } from 'shared/ui/Text/Text'
+import { useTranslation } from 'react-i18next'
+import { CommentCard } from '../CommentCard/CommentCard'
+import { VStack } from 'shared/ui/Stack'
 
 interface CommentsListProps {
     className?: string
@@ -23,23 +22,35 @@ export const CommentsList = (props: CommentsListProps) => {
 
     if (isLoading) {
         return (
-            <div className={classNames(cls.CommentList, {}, [className])}>
+            <VStack
+                max
+                gap='16'
+                className={classNames('', {}, [className])}
+            >
                 <CommentCard isLoading={true}/>
                 <CommentCard isLoading={true}/>
                 <CommentCard isLoading={true}/>
-            </div>
+            </VStack>
         )
     }
 
     return (
-        <div className={classNames(cls.CommentList, {}, [className])}>
+        <VStack
+            max
+            gap='16'
+            className={classNames('', {}, [className])}
+        >
             {
                 comments?.length
-                ? comments.map(comment => (
-                    <CommentCard isLoading={isLoading} comment={comment} className={cls.comment} key={comment.id}/>
-                ))
-                : <Text text={t('Комментарии отсутствуют')} />
+                    ? comments.map(comment => (
+                        <CommentCard
+                            isLoading={isLoading}
+                            comment={comment}
+                            key={comment.id}
+                        />
+                    ))
+                    : <Text text={t('Комментарии отсутствуют')} />
             }
-        </div>
+        </VStack>
     )
 }

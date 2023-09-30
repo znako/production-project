@@ -3,12 +3,13 @@ import { useTranslation } from 'react-i18next'
 import { Text, TextAlign, TextTheme } from 'shared/ui/Text/Text'
 import { Input } from 'shared/ui/Input/Input'
 import cls from './ProfileCard.module.scss'
-import { type Profile } from 'entities/Profile'
+import { type Profile } from '../../model/types/profile'
 import { Loader } from 'shared/ui/Loader/Loader'
 import { Avatar } from 'shared/ui/Avatar/Avatar'
 import { CurrencySelect } from 'entities/CurrencySelect/ui/CurrencySelect'
 import { type Currency } from 'entities/CurrencySelect'
 import { type Country, CountrySelect } from 'entities/CountrySelect'
+import { HStack, VStack } from 'shared/ui/Stack'
 
 interface ProfileCardProps {
     className?: string;
@@ -47,9 +48,9 @@ export const ProfileCard = (props: ProfileCardProps) => {
 
     if (isLoading) {
         return (
-            <div className={classNames(cls.ProfileCard, {}, [className, cls.loading])}>
+            <HStack max justify='center' className={classNames(cls.ProfileCard, {}, [className, cls.loading])}>
                 <Loader />
-            </div>
+            </HStack>
         )
     }
 
@@ -71,59 +72,53 @@ export const ProfileCard = (props: ProfileCardProps) => {
     }
 
     return (
-        <div className={classNames(cls.ProfileCard, mods, [className])}>
+        <VStack max gap='32' className={classNames(cls.ProfileCard, mods, [className])}>
             {
                 form?.avatar
                     ? (
-                        <div className={cls.avatarWrapper}>
+                        <HStack max justify='center'>
                             <Avatar
                                 src={form.avatar}
                                 alt={t('Аватар')}
                             />
-                        </div>
+                        </HStack>
                     )
                     : null
             }
-            <div>
+            <VStack gap='16'>
                 <Input
                     value={form?.first}
                     placeholder={t('Ваше имя')}
-                    className={cls.input}
                     onChange={onEditName}
                     readOnly={readonly}
                 />
                 <Input
                     value={form?.lastname}
                     placeholder={t('Ваша фамилия')}
-                    className={cls.input}
                     onChange={onEditLastname}
                     readOnly={readonly}
                 />
                 <Input
                     value={form?.age}
                     placeholder={t('Ваш возраст')}
-                    className={cls.input}
                     onChange={onEditAge}
                     readOnly={readonly}
                 />
                 <Input
                     value={form?.city}
                     placeholder={t('Ваш город')}
-                    className={cls.input}
                     onChange={onEditCity}
                     readOnly={readonly}
                 />
                 <Input
                     value={form?.username}
                     placeholder={t('Ваш username')}
-                    className={cls.input}
                     onChange={onEditUsername}
                     readOnly={readonly}
                 />
                 <Input
                     value={form?.avatar}
                     placeholder={t('Ваш аватар')}
-                    className={cls.input}
                     onChange={onEditAvatar}
                     readOnly={readonly}
                 />
@@ -137,7 +132,7 @@ export const ProfileCard = (props: ProfileCardProps) => {
                     value={form?.country}
                     readonly={readonly}
                 />
-            </div>
-        </div>
+            </VStack>
+        </VStack>
     )
 }

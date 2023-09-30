@@ -1,8 +1,8 @@
-import { scrollRestoreActions, scrollRestoreReducer } from './model/slice/ScrollRestoreSlice';
-import {ScrollRestoreSchema} from './model/types/ScrollRestoreSchema';
+import { scrollRestoreActions, scrollRestoreReducer } from './model/slice/ScrollRestoreSlice'
+import { type ScrollRestoreSchema } from './model/types/ScrollRestoreSchema'
 
 export {
-    ScrollRestoreSchema,
+    type ScrollRestoreSchema,
     scrollRestoreActions,
     scrollRestoreReducer
 }

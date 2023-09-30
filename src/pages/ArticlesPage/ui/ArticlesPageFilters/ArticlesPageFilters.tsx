@@ -1,21 +1,19 @@
-import { ArticleSortField, ArticleTypes, ArticleTypesTabs, ArticleView } from 'entities/Article';
-import { ArticleSortSelector } from 'entities/Article/ui/ArticleSortSelector/ArticleSortSelector';
-import { ArticleViewSelector } from 'entities/Article/ui/ArticleViewSelector/ArticleViewSelector';
-import { getArticlesPageArticleType, getArticlesPageOrder, getArticlesPagePage, getArticlesPageSearch, getArticlesPageSort, getArticlesPageView } from 'pages/ArticlesPage/model/selectors/getArticlesPage';
-import { fetchArticlesPage } from 'pages/ArticlesPage/model/services/fetchArticlesPage/fetchArticlesPage';
-import { ArticlesPageActions } from 'pages/ArticlesPage/model/slice/ArticlesPageSlice';
-import React, { useCallback, useMemo } from 'react'
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { classNames } from 'shared/lib/classNames/classNames';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useDebounce } from 'shared/lib/hooks/useDebounce/useDebounce';
-import { SortOrder } from 'shared/types';
-import { Card } from 'shared/ui/Card/Card';
-import { Input } from 'shared/ui/Input/Input';
-import { Select } from 'shared/ui/Select/Select';
-import { Tab, Tabs } from 'shared/ui/Tabs/Tabs';
-import cls from './ArticlesPageFilters.module.scss';
+import { type ArticleSortField, type ArticleTypes, ArticleTypesTabs, type ArticleView } from 'entities/Article'
+import { ArticleSortSelector } from 'entities/Article/ui/ArticleSortSelector/ArticleSortSelector'
+import { ArticleViewSelector } from 'entities/Article/ui/ArticleViewSelector/ArticleViewSelector'
+import { getArticlesPageOrder, getArticlesPageSearch, getArticlesPageSort, getArticlesPageView } from '../../model/selectors/getArticlesPage'
+import { fetchArticlesPage } from '../../model/services/fetchArticlesPage/fetchArticlesPage'
+import { ArticlesPageActions } from '../../model/slice/ArticlesPageSlice'
+import { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import { classNames } from 'shared/lib/classNames/classNames'
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
+import { useDebounce } from 'shared/lib/hooks/useDebounce/useDebounce'
+import { type SortOrder } from 'shared/types'
+import { Card } from 'shared/ui/Card/Card'
+import { Input } from 'shared/ui/Input/Input'
+import cls from './ArticlesPageFilters.module.scss'
 
 interface ArticlesPageFiltersProps {
     className?: string
@@ -32,15 +30,14 @@ export const ArticlesPageFilters = (props: ArticlesPageFiltersProps) => {
     const order = useSelector(getArticlesPageOrder)
     const sortField = useSelector(getArticlesPageSort)
     const search = useSelector(getArticlesPageSearch)
-    
 
     const fetchData = useCallback(
-      () => {
-        dispatch(fetchArticlesPage({isReplace: true}))
-      },
-      [dispatch],
+        () => {
+            dispatch(fetchArticlesPage({ isReplace: true }))
+        },
+        [dispatch]
     )
-    
+
     const DebouncedFetchData = useDebounce(fetchData, 500)
 
     const onSetView = useCallback(
@@ -48,7 +45,7 @@ export const ArticlesPageFilters = (props: ArticlesPageFiltersProps) => {
             dispatch(ArticlesPageActions.setView(view))
             fetchData()
         },
-        [dispatch],
+        [dispatch]
     )
 
     const onChangeOrder = useCallback(
@@ -57,7 +54,7 @@ export const ArticlesPageFilters = (props: ArticlesPageFiltersProps) => {
             dispatch(ArticlesPageActions.setPage(1))
             fetchData()
         },
-        [dispatch],
+        [dispatch]
     )
 
     const onChangeSortField = useCallback(
@@ -66,7 +63,7 @@ export const ArticlesPageFilters = (props: ArticlesPageFiltersProps) => {
             dispatch(ArticlesPageActions.setPage(1))
             fetchData()
         },
-        [dispatch],
+        [dispatch]
     )
 
     const onChangeSearch = useCallback(
@@ -82,11 +79,9 @@ export const ArticlesPageFilters = (props: ArticlesPageFiltersProps) => {
             dispatch(ArticlesPageActions.setPage(1))
             fetchData()
         },
-        [dispatch],
+        [dispatch]
     )
-    
-   
-        
+
     return (
         <div className={classNames(cls.ArticlesPageFilters, {}, [className])}>
             <div className={cls.sortWrapper}>

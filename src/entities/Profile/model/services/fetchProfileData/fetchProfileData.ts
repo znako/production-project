@@ -12,7 +12,7 @@ ThunkConfig<string>
         const { extra, rejectWithValue } = thunkApi
 
         try {
-            const response = await extra.api.get<Profile>('/profile/'+userId)
+            const response = await extra.api.get<Profile>('/profile/' + userId)
 
             if (!response.data) {
                 return rejectWithValue('error')

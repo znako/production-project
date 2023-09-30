@@ -1,10 +1,10 @@
 import { ArticleBlockCode } from 'entities/Article/model/types/article'
 import React, { useCallback } from 'react'
 import { classNames } from 'shared/lib/classNames/classNames'
-import { Button, ButtonTheme } from '../Button/Button';
-import { Icon } from '../Icon/Icons';
-import cls from './Code.module.scss';
-import CopyIcon from 'shared/assets/icons/copy.svg';
+import { Button, ButtonTheme } from '../Button/Button'
+import { Icon } from '../Icon/Icons'
+import cls from './Code.module.scss'
+import CopyIcon from 'shared/assets/icons/copy.svg'
 
 interface CodeProps {
     className?: string
@@ -18,12 +18,11 @@ export const Code = (props: CodeProps) => {
     } = props
 
     const onCopy = useCallback(
-      () => {
-        navigator.clipboard.writeText(code)
-      },
-      [code],
+        () => {
+            navigator.clipboard.writeText(code)
+        },
+        [code]
     )
-    
 
     return (
         <pre className={classNames(cls.Code, {}, [className])}>
@@ -38,6 +37,6 @@ export const Code = (props: CodeProps) => {
                 {code}
             </code>
         </pre>
-        
+
     )
 }

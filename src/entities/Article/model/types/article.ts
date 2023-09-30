@@ -1,4 +1,4 @@
-import { User } from "entities/User";
+import { type User } from 'entities/User'
 
 export enum ArticleSortField {
     VIEWS = 'views',
@@ -7,10 +7,10 @@ export enum ArticleSortField {
 }
 
 export enum ArticleTypes {
-    ALL = "ALL",
-    IT = "IT",
-    SCIENCE = "SCIENCE",
-    ECONOMY = "ECONOMICS"
+    ALL = 'ALL',
+    IT = 'IT',
+    SCIENCE = 'SCIENCE',
+    ECONOMY = 'ECONOMICS'
 }
 
 export enum ArticleBlocksType {

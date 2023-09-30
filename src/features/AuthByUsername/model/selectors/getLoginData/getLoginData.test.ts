@@ -1,6 +1,5 @@
-import { StateSchema } from "app/providers/StoreProvider"
-import { getLoginError, getLoginIsLoading, getLoginPassword, getLoginUsername } from "./getLoginData"
-
+import { type StateSchema } from 'app/providers/StoreProvider'
+import { getLoginError, getLoginIsLoading, getLoginPassword, getLoginUsername } from './getLoginData'
 
 describe('getLoginTest', () => {
     test('should return error', () => {

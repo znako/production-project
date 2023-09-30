@@ -10,7 +10,7 @@ import { scrollRestoreReducer } from 'features/ScrollRestore'
 
 export function createReduxStore (
     initialState?: StateSchema,
-    asyncReducers?: ReducersMapObject<StateSchema>,
+    asyncReducers?: ReducersMapObject<StateSchema>
 ) {
     const rootReducers: ReducersMapObject<StateSchema> = {
         ...asyncReducers,
@@ -21,7 +21,7 @@ export function createReduxStore (
     const reducerManager = createReducerManager(rootReducers)
 
     const extraArg: ThunkExtraArg = {
-        api: $api,
+        api: $api
     }
 
     const store = configureStore({

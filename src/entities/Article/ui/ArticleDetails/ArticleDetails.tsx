@@ -1,23 +1,24 @@
-import { ArticleBlocksType, getArticleData, getArticleError, getArticleIsLoading } from 'entities/Article'
-import { fetchArticleById } from 'entities/Article/model/services/fetchArticleById'
-import { articleDetailsReducer } from 'entities/Article/model/slice/articleSlice'
-import React, { memo, useCallback, useEffect } from 'react'
+import { ArticleBlocksType, type ArticleBlock } from '../../model/types/article'
+import { getArticleData, getArticleError, getArticleIsLoading } from '../../model/selectors/getArticle'
+import { fetchArticleById } from '../../model/services/fetchArticleById'
+import { articleDetailsReducer } from '../../model/slice/articleSlice'
+import { memo, useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { classNames } from 'shared/lib/classNames/classNames'
-import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
+import { DynamicModuleLoader, type ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
 import { Avatar } from 'shared/ui/Avatar/Avatar'
 import { Icon } from 'shared/ui/Icon/Icons'
 import { Skeleton } from 'shared/ui/Skeleton/Skeleton'
 import { Text, TextAlign, TextSize } from 'shared/ui/Text/Text'
-import EyeIcon from 'shared/assets/icons/eye.svg';
-import CalendarIcon from 'shared/assets/icons/calendar.svg';
-import cls from './ArticleDetails.module.scss';
+import EyeIcon from 'shared/assets/icons/eye.svg'
+import CalendarIcon from 'shared/assets/icons/calendar.svg'
+import cls from './ArticleDetails.module.scss'
 import { ArticleText } from '../ArticleText/ArticleText'
-import { ArticleBlock } from '../../model/types/article'
 import { ArticleCode } from '../ArticleCode/ArticleCode'
 import { ArticleImage } from '../ArticleImage/ArticleImage'
+import { HStack, VStack } from 'shared/ui/Stack'
 
 const reducers: ReducersList = {
     article: articleDetailsReducer
@@ -42,41 +43,39 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
     const { t } = useTranslation('article-details')
 
     useEffect(() => {
-        if (__PROJECT__ !== 'storybook'){
+        if (__PROJECT__ !== 'storybook') {
             dispatch(fetchArticleById(id))
         }
     }, [dispatch, id])
 
     const renderBlocks = useCallback(
-      (block: ArticleBlock) => {
-        switch (block.type) {
-            case ArticleBlocksType.TEXT:
-                return <ArticleText block={block} key={block.id} className={cls.block}/>
-            case ArticleBlocksType.CODE:
-                return <ArticleCode block={block} key={block.id} className={cls.block}/>
-            case ArticleBlocksType.IMAGE:
-                return <ArticleImage block={block} key={block.id} className={cls.block}/>
-        
-            default:
-                break;
-        }
-      },
-      [],
-    )
-    
+        (block: ArticleBlock) => {
+            switch (block.type) {
+                case ArticleBlocksType.TEXT:
+                    return <ArticleText block={block} key={block.id}/>
+                case ArticleBlocksType.CODE:
+                    return <ArticleCode block={block} key={block.id}/>
+                case ArticleBlocksType.IMAGE:
+                    return <ArticleImage block={block} key={block.id}/>
 
-    let content: JSX.Element;
-    
+                default:
+                    break
+            }
+        },
+        []
+    )
+
+    let content: JSX.Element
+
     if (error) {
-        content =  (
+        content = (
             <div
                 className={classNames(cls.ArticleDetails, {}, [className])}
             >
                 <Text align={TextAlign.CENTER} title={t('Произошла ошибка при загрузке статьи')} />
             </div>
         )
-    }
-    else if (isLoading) {
+    } else if (isLoading) {
         content = (
             <div
                 className={classNames(cls.ArticleDetails, {}, [className])}
@@ -88,35 +87,39 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
                 <Skeleton className={cls.skeleton} width={'100%'} height={200}/>
             </div>
         )
+    } else {
+        content = <VStack
+            gap='16'
+            className={classNames(cls.ArticleDetails, {}, [className])}
+        >
+            <HStack justify='center' max>
+                <Avatar
+                    size={200}
+                    src={article?.img}
+                />
+            </HStack>
+            <VStack max gap='4'>
+                <Text
+                    title={article?.title}
+                    text={article?.subtitle}
+                    size={TextSize.L_SIZE}
+                />
+                <HStack gap='8'>
+                    <Icon Svg={EyeIcon} className={cls.icon}/>
+                    <Text text={`${article?.views || 0}`} />
+                </HStack >
+                <HStack gap='8'>
+                    <Icon Svg={CalendarIcon} className={cls.icon}/>
+                    <Text text={article?.createdAt} />
+                </HStack >
+            </VStack>
+            {article?.blocks.map(renderBlocks)}
+        </VStack>
     }
-    else {
-        content = <div
-                    className={classNames(cls.ArticleDetails, {}, [className])}
-                >   
-                    <div className={cls.avatarWrapper}>
-                        <Avatar
-                            size={200}
-                            src={article?.img}
-                            className={cls.avatar}
-                        />
-                    </div>
-                    <Text title={article?.title} text={article?.subtitle} size={TextSize.L_SIZE}/>
-                    <div className={cls.articleInfo}>
-                        <Icon Svg={EyeIcon} className={cls.icon}/>
-                        <Text text={article?.views+''} />
-                    </div>
-                    <div className={cls.articleInfo}>
-                        <Icon Svg={CalendarIcon} className={cls.icon}/>
-                        <Text text={article?.createdAt} />
-                    </div>
-                    {article?.blocks.map(renderBlocks)}
-                </div>
-    }
-    
+
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
             {content}
         </DynamicModuleLoader>
-        
     )
 })

@@ -16,14 +16,14 @@ describe('fetchNextArticles.test', () => {
                 limit: 9,
                 hasMore: true,
                 ids: [],
-                entities: {},
+                entities: {}
             }
         })
 
         await thunk.callThunk()
-        
+
         expect(thunk.dispatch).toBeCalledTimes(4)
-        expect(fetchArticlesPage).toBeCalledWith({page: 2})
+        expect(fetchArticlesPage).toBeCalledWith({ page: 2 })
     })
 
     test('error fetch', async () => {
@@ -36,12 +36,12 @@ describe('fetchNextArticles.test', () => {
                 limit: 9,
                 hasMore: false,
                 ids: [],
-                entities: {},
+                entities: {}
             }
         })
 
         await thunk.callThunk()
-        
+
         expect(thunk.dispatch).toBeCalledTimes(2)
         expect(fetchArticlesPage).not.toHaveBeenCalled()
     })

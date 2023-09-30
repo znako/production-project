@@ -1,10 +1,10 @@
 import { getUserInited } from './model/selectors/getUserInited/getUserInited'
 
 export {
-    getUserAuthData,
+    getUserAuthData
 } from './model/selectors/getUserAuthData/getUserAuthData'
 
-export {getUserInited}
+export { getUserInited }
 
 export {
     userReducer,

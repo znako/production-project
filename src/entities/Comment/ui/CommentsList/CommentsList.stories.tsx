@@ -20,13 +20,13 @@ Normal.args = {
         {
             id: '1',
             text: 'comment1',
-            user: {id: '1', username: 'user1'}
+            user: { id: '1', username: 'user1' }
         },
         {
             id: '2',
             text: 'comment2',
-            user: {id: '2', username: 'user2'}
-        },
+            user: { id: '2', username: 'user2' }
+        }
     ]
 }
 
@@ -36,13 +36,13 @@ Dark.args = {
         {
             id: '1',
             text: 'comment1',
-            user: {id: '1', username: 'user1'}
+            user: { id: '1', username: 'user1' }
         },
         {
             id: '2',
             text: 'comment2',
-            user: {id: '2', username: 'user2'}
-        },
+            user: { id: '2', username: 'user2' }
+        }
     ]
 }
 Dark.decorators = [ThemeDecorator(Theme.DARK)]
@@ -53,13 +53,13 @@ Orange.args = {
         {
             id: '1',
             text: 'comment1',
-            user: {id: '1', username: 'user1'}
+            user: { id: '1', username: 'user1' }
         },
         {
             id: '2',
             text: 'comment2',
-            user: {id: '2', username: 'user2'}
-        },
+            user: { id: '2', username: 'user2' }
+        }
     ]
 }
 Orange.decorators = [ThemeDecorator(Theme.ORANGE)]

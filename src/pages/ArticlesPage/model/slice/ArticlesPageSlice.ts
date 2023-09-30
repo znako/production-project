@@ -1,22 +1,22 @@
 import {
-    createEntityAdapter, createSlice, PayloadAction
-  } from '@reduxjs/toolkit'
-import { StateSchema } from 'app/providers/StoreProvider'
-import { Article, ArticleSortField, ArticleTypes, ArticleView } from 'entities/Article'
+    createEntityAdapter, createSlice, type PayloadAction
+} from '@reduxjs/toolkit'
+import { type StateSchema } from 'app/providers/StoreProvider'
+import { type Article, ArticleSortField, ArticleTypes, ArticleView } from 'entities/Article'
 import { ARTICLES_VIEW_LOCALSTORAGE_KEY } from 'shared/const/localstorage'
-import { SortOrder } from 'shared/types'
+import { type SortOrder } from 'shared/types'
 import { fetchArticlesPage } from '../services/fetchArticlesPage/fetchArticlesPage'
-import { ArticlesPageSchema } from '../types/ArticlesPageSchema'
-  
+import { type ArticlesPageSchema } from '../types/ArticlesPageSchema'
+
 const articlesAdapter = createEntityAdapter<Article>({
     selectId: (article) => article.id
-  })
-  
+})
+
 export const getArticles = articlesAdapter.getSelectors<StateSchema>(
     (state) => state.articlesPage || articlesAdapter.getInitialState()
 )
-  
-  const initialState = articlesAdapter.getInitialState<ArticlesPageSchema>({
+
+const initialState = articlesAdapter.getInitialState<ArticlesPageSchema>({
     error: undefined,
     isLoading: false,
     view: ArticleView.SMALL,
@@ -30,8 +30,8 @@ export const getArticles = articlesAdapter.getSelectors<StateSchema>(
     search: '',
     articleType: ArticleTypes.ALL,
     _inited: false
-  })
-  
+})
+
 const ArticlesPageSlice = createSlice({
     name: 'articlesPage',
     initialState,
@@ -88,8 +88,7 @@ const ArticlesPageSlice = createSlice({
 
                 if (action.meta.arg.isReplace) {
                     articlesAdapter.setAll(state, action.payload)
-                }
-                else {
+                } else {
                     articlesAdapter.addMany(state, action.payload)
                 }
             })
@@ -98,7 +97,7 @@ const ArticlesPageSlice = createSlice({
                 state.error = action.payload
             })
     }
-  })
-  
-export const {reducer: ArticlesPageReducer} = ArticlesPageSlice
-export const {actions: ArticlesPageActions} = ArticlesPageSlice
+})
+
+export const { reducer: ArticlesPageReducer } = ArticlesPageSlice
+export const { actions: ArticlesPageActions } = ArticlesPageSlice

@@ -39,14 +39,14 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                     title={t('Habr 2.0')}
                     theme={TextTheme.INVERTED}
                     className={cls.appTitle}
-                />   
+                />
                 <AppLink
                     to={RoutePath.article_create}
                     theme={AppLinkTheme.SECONDARY}
                     className={cls.createBtn}
                 >
                     {t('Создать статью')}
-                </AppLink>  
+                </AppLink>
                 <Button
                     theme={ButtonTheme.CLEAR_INVERTED}
                     className={cls.links}
@@ -61,10 +61,10 @@ export const Navbar = memo(({ className }: NavbarProps) => {
     return (
         <header className={classNames(cls.Navbar, {}, [className])}>
             <Text
-                    title={t('Habr 2.0')}
-                    theme={TextTheme.INVERTED}
-                    className={cls.appTitle}
-            />             
+                title={t('Habr 2.0')}
+                theme={TextTheme.INVERTED}
+                className={cls.appTitle}
+            />
             <Button
                 theme={ButtonTheme.CLEAR_INVERTED}
                 className={cls.links}

@@ -1,10 +1,10 @@
-import { getIsCanEditArticle } from './model/selectors/article';
+import { getIsCanEditArticle } from './model/selectors/article'
 
 export {
-    ArticleDetailsPageAsync as ArticleDetailsPage,
-} from './ui/ArticleDetailsPage/ArticleDetailsPage.async';
+    ArticleDetailsPageAsync as ArticleDetailsPage
+} from './ui/ArticleDetailsPage/ArticleDetailsPage.async'
 
-export {
+export type {
     ArticleDetailsSchema
 } from './model/types/index'
 

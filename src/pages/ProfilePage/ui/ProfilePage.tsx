@@ -1,7 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames'
 import { DynamicModuleLoader, type ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
 import { fetchProfileData, getProfileError, getProfileErrorsLift, getProfileForm, getProfileIsLoading, getProfileReadonly, profileActions, ProfileCard, profileReducer, ValidateProfileEror } from 'entities/Profile'
-import { useCallback, useEffect } from 'react'
+import { useCallback } from 'react'
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
 import { useSelector } from 'react-redux'
 import { ProfilePageHeader } from './ProfilePageHeader/ProfilePageHeader'
@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next'
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect'
 import { useParams } from 'react-router-dom'
 import { Page } from 'widgets/Page/Page'
+import { VStack } from 'shared/ui/Stack'
 
 const reducers: ReducersList = {
     profile: profileReducer
@@ -29,7 +30,7 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
     const error = useSelector(getProfileError)
     const readonly = useSelector(getProfileReadonly)
     const errors = useSelector(getProfileErrorsLift)
-    const { id } = useParams<{id: string}>()
+    const { id } = useParams<{ id: string }>()
 
     const ValidateProfileErrorsTranslate: Record<ValidateProfileEror, string> = {
         [ValidateProfileEror.INCORRECT_USER_DATA]: t('Поля имя, фамилия и username не должны быть пустыми!'),
@@ -39,10 +40,10 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
     }
 
     const dispatch = useAppDispatch()
-    
+
     if (id) {
         useInitialEffect(
-                () => dispatch(fetchProfileData(id))
+            async () => await dispatch(fetchProfileData(id))
         )
     }
 
@@ -104,30 +105,32 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
             <Page className={classNames('', {}, [className])}>
-                <ProfilePageHeader />
-                {
-                    errors?.length &&
-                    errors.map(err =>
-                        <Text
-                            theme={TextTheme.ERROR}
-                            text={ValidateProfileErrorsTranslate[err]}
-                            key={err}
-                        />)
-                }
-                <ProfileCard
-                    form={form}
-                    isLoading={isLoading}
-                    error={error}
-                    onEditName={onEditName}
-                    onEditLastname={onEditLastname}
-                    readonly={readonly}
-                    onEditAge={onEditAge}
-                    onEditCity={onEditCity}
-                    onEditUsername={onEditUsername}
-                    onEditAvatar={onEditAvatar}
-                    onEditCurrency={onEditCurrency}
-                    onEditCountry={onEditCountry}
-                />
+                <VStack gap='16' max>
+                    <ProfilePageHeader />
+                    {
+                        errors?.length &&
+                        errors.map(err =>
+                            <Text
+                                theme={TextTheme.ERROR}
+                                text={ValidateProfileErrorsTranslate[err]}
+                                key={err}
+                            />)
+                    }
+                    <ProfileCard
+                        form={form}
+                        isLoading={isLoading}
+                        error={error}
+                        onEditName={onEditName}
+                        onEditLastname={onEditLastname}
+                        readonly={readonly}
+                        onEditAge={onEditAge}
+                        onEditCity={onEditCity}
+                        onEditUsername={onEditUsername}
+                        onEditAvatar={onEditAvatar}
+                        onEditCurrency={onEditCurrency}
+                        onEditCountry={onEditCountry}
+                    />
+                </VStack>
             </Page>
         </DynamicModuleLoader>
     )

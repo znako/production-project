@@ -1,10 +1,10 @@
-import { ArticleSortField } from 'entities/Article';
+import { ArticleSortField } from '../../model/types/article'
 import React, { memo, useMemo } from 'react'
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 import { classNames } from 'shared/lib/classNames/classNames'
-import { SortOrder } from 'shared/types';
-import { Select, SelectOptions } from 'shared/ui/Select/Select';
-import cls from './ArticleSortSelector.module.scss';
+import { type SortOrder } from 'shared/types'
+import { Select, type SelectOptions } from 'shared/ui/Select/Select'
+import cls from './ArticleSortSelector.module.scss'
 
 interface ArticleSortSelectorProps {
     className?: string
@@ -21,11 +21,11 @@ export const ArticleSortSelector = memo((props: ArticleSortSelectorProps) => {
         sortField,
         onChangeOrder,
         onChangeSort
-    } = props 
+    } = props
 
     const { t } = useTranslation()
 
-    const orderList = useMemo<SelectOptions<SortOrder>[]>(() => {
+    const orderList = useMemo<Array<SelectOptions<SortOrder>>>(() => {
         return [
             {
                 value: 'asc',
@@ -34,11 +34,11 @@ export const ArticleSortSelector = memo((props: ArticleSortSelectorProps) => {
             {
                 value: 'desc',
                 content: t('Убыванию')
-            },
+            }
         ]
     }, [])
 
-    const sortFieldList = useMemo<SelectOptions<ArticleSortField>[]>(() => {
+    const sortFieldList = useMemo<Array<SelectOptions<ArticleSortField>>>(() => {
         return [
             {
                 value: ArticleSortField.CREATED,
@@ -51,7 +51,7 @@ export const ArticleSortSelector = memo((props: ArticleSortSelectorProps) => {
             {
                 value: ArticleSortField.TITLE,
                 content: t('Названию')
-            },
+            }
         ]
     }, [])
 

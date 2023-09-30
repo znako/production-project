@@ -14,24 +14,24 @@ export const useHover = (): useHoverReturn => {
         () => {
             setIsHover(true)
         },
-        [setIsHover],
+        [setIsHover]
     )
 
     const onMouseLeave = useCallback(
         () => {
             setIsHover(false)
         },
-        [setIsHover],
+        [setIsHover]
     )
-    
+
     return useMemo(
-        () => 
-    [
-        isHover, 
-        {
-            onMouseEnter, 
-            onMouseLeave
-        }
-    ], 
-    [isHover, onMouseEnter, onMouseLeave])
+        () =>
+            [
+                isHover,
+                {
+                    onMouseEnter,
+                    onMouseLeave
+                }
+            ],
+        [isHover, onMouseEnter, onMouseLeave])
 }

@@ -6,11 +6,11 @@ import {
 import { type CombinedState } from 'redux'
 import { type ProfileSchema } from 'entities/Profile'
 import { type AxiosInstance } from 'axios'
-import { ArticleSchema } from 'entities/Article'
-import { AddCommentFormSchema } from 'features/AddCommentForm'
-import { ArticlesPageSchema } from 'pages/ArticlesPage'
-import { ScrollRestoreSchema } from 'features/ScrollRestore'
-import { ArticleDetailsSchema } from 'pages/ArticleDetailsPage/'
+import { type ArticleSchema } from 'entities/Article'
+import { type AddCommentFormSchema } from 'features/AddCommentForm'
+import { type ArticlesPageSchema } from 'pages/ArticlesPage'
+import { type ScrollRestoreSchema } from 'features/ScrollRestore'
+import { type ArticleDetailsSchema } from 'pages/ArticleDetailsPage/'
 
 export interface StateSchema {
     user: UserSchema;
@@ -22,12 +22,12 @@ export interface StateSchema {
     article?: ArticleSchema;
     articleDetails?: ArticleDetailsSchema;
     addCommentForm?: AddCommentFormSchema;
-    articlesPage?: ArticlesPageSchema; 
+    articlesPage?: ArticlesPageSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema
 
-export type MountedReducers = OptionalMountedReducers<StateSchemaKey, boolean> 
+export type MountedReducers = OptionalMountedReducers<StateSchemaKey, boolean>
 export interface ReducerManager {
     getReducerMap: () => ReducersMapObject<StateSchema>;
     reduce: (state: StateSchema, action: AnyAction) => CombinedState<StateSchema>;

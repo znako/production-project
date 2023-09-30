@@ -1,8 +1,8 @@
 import React, { memo, useCallback } from 'react'
 import { classNames } from 'shared/lib/classNames/classNames'
-import cls from './Tabs.module.scss';
-import { Card, CardTheme } from '../Card/Card';
-import { ArticleTypes } from 'entities/Article';
+import cls from './Tabs.module.scss'
+import { Card, CardTheme } from '../Card/Card'
+import { ArticleTypes } from 'entities/Article'
 
 export interface Tab {
     value: string
@@ -31,7 +31,7 @@ export const Tabs = memo((props: TabsProps) => {
     return (
         <div className={classNames(cls.Tabs, {}, [className])}>
             {
-                tabs.map(tab => 
+                tabs.map(tab =>
                     (
                         <Card
                             key={tab.value}

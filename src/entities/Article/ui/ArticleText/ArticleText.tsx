@@ -1,30 +1,30 @@
-import { ArticleBlockText } from '../../model/types/article'
+import { type ArticleBlockText } from '../../model/types/article'
 import React, { memo } from 'react'
 import { classNames } from 'shared/lib/classNames/classNames'
-import cls from './ArticleText.module.scss';
-import { Text } from 'shared/ui/Text/Text';
+import cls from './ArticleText.module.scss'
+import { Text } from 'shared/ui/Text/Text'
 
 interface ArticleTextProps {
-  className?: string
-  block: ArticleBlockText
+    className?: string
+    block: ArticleBlockText
 }
 
 export const ArticleText = memo((props: ArticleTextProps) => {
-  const {
-    className,
-    block
-  } = props
+    const {
+        className,
+        block
+    } = props
 
-  return (
-    <div className={classNames(cls.ArticleText, {}, [className])}>
-      {block.title && 
+    return (
+        <div className={classNames(cls.ArticleText, {}, [className])}>
+            {block.title &&
         <Text title={block.title} className={cls.title}/>
-      }
-      {
-        block.paragraphs.map((paragraph) => {
-          return <Text text={paragraph} key={paragraph} className={cls.paragraph}/>
-        })
-      }
-    </div>
-  )
+            }
+            {
+                block.paragraphs.map((paragraph) => {
+                    return <Text text={paragraph} key={paragraph} className={cls.paragraph}/>
+                })
+            }
+        </div>
+    )
 })

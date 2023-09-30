@@ -12,5 +12,5 @@ export const getQueryParams = (newParams: Partial<Record<string, string>>) => {
 }
 
 export const addQueryParams = (newParams: Record<string, string>) => {
-  window.history.pushState(null, '', getQueryParams(newParams))
+    window.history.pushState(null, '', getQueryParams(newParams))
 }

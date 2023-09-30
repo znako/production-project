@@ -1,12 +1,12 @@
-import { ArticleBlockImage } from 'entities/Article/model/types/article'
+import { type ArticleBlockImage } from '../../model/types/article'
 import React, { memo } from 'react'
 import { classNames } from 'shared/lib/classNames/classNames'
-import { Text, TextAlign } from 'shared/ui/Text/Text';
-import cls from './ArticleImage.module.scss';
+import { Text, TextAlign } from 'shared/ui/Text/Text'
+import cls from './ArticleImage.module.scss'
 
 interface ArticleImageProps {
-  className?: string
-  block: ArticleBlockImage
+    className?: string
+    block: ArticleBlockImage
 }
 
 export const ArticleImage = memo((props: ArticleImageProps) => {
@@ -19,7 +19,7 @@ export const ArticleImage = memo((props: ArticleImageProps) => {
         <div className={classNames(cls.ArticleImage, {}, [className])}>
             <img src={block.src} alt={block.title} className={cls.image}/>
             {
-                block.title && 
+                block.title &&
                     <Text text={block.title} align={TextAlign.CENTER}/>
             }
         </div>

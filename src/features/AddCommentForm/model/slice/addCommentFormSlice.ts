@@ -1,8 +1,8 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { AddCommentFormSchema } from '../types/AddCommentFormSchema'
+import { type AddCommentFormSchema } from '../types/AddCommentFormSchema'
 
 const initialState: AddCommentFormSchema = {
-    text: '',
+    text: ''
 }
 
 export const AddCommentFormSlice = createSlice({
@@ -12,7 +12,7 @@ export const AddCommentFormSlice = createSlice({
         setText: (state, action: PayloadAction<string>) => {
             state.text = action.payload
         }
-    },
+    }
 })
 
 // Action creators are generated for each case reducer function

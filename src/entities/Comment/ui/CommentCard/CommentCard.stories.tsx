@@ -20,7 +20,7 @@ Normal.args = {
         {
             id: '1',
             text: 'comment1',
-            user: {id: '1', username: 'user1', avatar: 'https://avatars.githubusercontent.com/u/91160077?s=400&u=4aeda31adf480de7e5fd10a7c19b15cc3ee9ae31&v=4'}
+            user: { id: '1', username: 'user1', avatar: 'https://avatars.githubusercontent.com/u/91160077?s=400&u=4aeda31adf480de7e5fd10a7c19b15cc3ee9ae31&v=4' }
         }
 }
 
@@ -30,8 +30,8 @@ Dark.args = {
         {
             id: '1',
             text: 'comment1',
-            user: {id: '1', username: 'user1'}
-        },
+            user: { id: '1', username: 'user1' }
+        }
 }
 Dark.decorators = [ThemeDecorator(Theme.DARK)]
 
@@ -41,7 +41,7 @@ Orange.args = {
         {
             id: '1',
             text: 'comment1',
-            user: {id: '1', username: 'user1'}
+            user: { id: '1', username: 'user1' }
         }
 }
 Orange.decorators = [ThemeDecorator(Theme.ORANGE)]

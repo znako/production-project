@@ -1,6 +1,6 @@
-import { createSelector } from "@reduxjs/toolkit";
-import { StateSchema } from "app/providers/StoreProvider";
-import { ScrollRestoreSchema } from "../types/ScrollRestoreSchema";
+import { createSelector } from '@reduxjs/toolkit'
+import { type StateSchema } from 'app/providers/StoreProvider'
+import { ScrollRestoreSchema } from '../types/ScrollRestoreSchema'
 
 const getScrollRestore = (state: StateSchema) => state.scrollRestore.scroll
 

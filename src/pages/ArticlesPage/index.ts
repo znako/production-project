@@ -1,7 +1,7 @@
-import { ArticlesPageAsync } from "./ui/ArticlesPage/ArticlesPage.async";
-import { ArticlesPageSchema } from './model/types/ArticlesPageSchema';
+import { ArticlesPageAsync } from './ui/ArticlesPage/ArticlesPage.async'
+import { type ArticlesPageSchema } from './model/types/ArticlesPageSchema'
 
 export {
     ArticlesPageAsync as ArticlesPage,
-    ArticlesPageSchema
+    type ArticlesPageSchema
 }

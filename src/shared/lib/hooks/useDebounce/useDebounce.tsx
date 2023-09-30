@@ -1,7 +1,7 @@
-import { MutableRefObject, useCallback, useRef } from 'react'
+import { useCallback, useRef } from 'react'
 
 export const useDebounce = (callback: (...args: any) => void, delay: number) => {
-    const debounceRef = useRef() as MutableRefObject<any>
+    const debounceRef = useRef<NodeJS.Timeout>()
 
     return (
         useCallback(
@@ -12,10 +12,10 @@ export const useDebounce = (callback: (...args: any) => void, delay: number) => 
 
                 debounceRef.current = setTimeout(() => {
                     callback(...args)
-                }, delay);
+                }, delay)
             },
-            [callback, delay],
+            [callback, delay]
         )
-        
+
     )
 }
