@@ -1,7 +1,7 @@
 import { type StateSchema } from 'app/providers/StoreProvider'
 import { scrollRestoreActions } from 'features/ScrollRestore'
 import { getScrollRestoreByPath } from 'features/ScrollRestore/model/selector/getScrollRestore'
-import React, { type MutableRefObject, type UIEvent, useCallback, useEffect, useRef } from 'react'
+import React, { type MutableRefObject, type UIEvent, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { classNames } from 'shared/lib/classNames/classNames'
@@ -46,7 +46,7 @@ export const Page = ({ className, children, onObserv }: PageProps) => {
         }, 100)
 
     return (
-        <section
+        <main
             ref={wrapperRef}
             className={classNames(cls.Page, {}, [className])}
             onScroll={onScroll}
@@ -54,6 +54,6 @@ export const Page = ({ className, children, onObserv }: PageProps) => {
         >
             {children}
             {onObserv ? <div className={cls.trigger} ref={targetRef} /> : null}
-        </section>
+        </main>
     )
 }

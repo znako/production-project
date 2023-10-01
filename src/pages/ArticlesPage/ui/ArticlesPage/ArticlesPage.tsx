@@ -1,86 +1,66 @@
-import { ArticleList } from 'entities/Article'
-import { ArticlesPageReducer, getArticles } from '../../model/slice/ArticlesPageSlice'
-import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
 import { classNames } from 'shared/lib/classNames/classNames'
+import { useTranslation } from 'react-i18next'
+import { memo, useCallback } from 'react'
+import { ArticleList } from 'entities/Article'
 import { DynamicModuleLoader, type ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
-import cls from './ArticlesPage.module.scss'
-import { getArticlesPageError, getArticlesPageIsLoading, getArticlesPageView } from '../../model/selectors/getArticlesPage'
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect'
-import { useCallback } from 'react'
+import { useSelector } from 'react-redux'
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
 import { Page } from 'widgets/Page/Page'
-import { fetchNextArticles } from '../../model/services/fetchNextArticles/fetchNextArticles'
-import { Text, TextAlign } from 'shared/ui/Text/Text'
-import { fetchInitArticles } from '../../model/services/fetchInitArticles/fetchInitArticles'
-import { ArticlesPageFilters } from '../ArticlesPageFilters/ArticlesPageFilters'
 import { useSearchParams } from 'react-router-dom'
+import { ArticlesPageFilters } from '../ArticlesPageFilters/ArticlesPageFilters'
+import { fetchNextArticlesPage } from '../../model/services/fetchNextArticlesPage/fetchNextArticlesPage'
+import { initArticlesPage } from '../../model/services/initArticlesPage/initArticlesPage'
+import { articlesPageReducer, getArticles } from '../../model/slices/articlesPageSlice'
+import cls from './ArticlesPage.module.scss'
+import {
+    getArticlesPageError,
+    getArticlesPageIsLoading,
+    getArticlesPageView
+} from '../../model/selectors/articlesPageSelectors'
 
 interface ArticlesPageProps {
-    className?: string
+    className?: string;
 }
 
 const reducers: ReducersList = {
-    articlesPage: ArticlesPageReducer
+    articlesPage: articlesPageReducer
 }
 
 const ArticlesPage = (props: ArticlesPageProps) => {
-    const {
-        className
-    } = props
-
-    const { t } = useTranslation('/article')
+    const { className } = props
+    const { t } = useTranslation()
+    const dispatch = useAppDispatch()
     const articles = useSelector(getArticles.selectAll)
-    const error = useSelector(getArticlesPageError)
     const isLoading = useSelector(getArticlesPageIsLoading)
     const view = useSelector(getArticlesPageView)
+    const error = useSelector(getArticlesPageError)
     const [searchParams] = useSearchParams()
 
-    const dispatch = useAppDispatch()
+    const onLoadNextPart = useCallback(() => {
+        dispatch(fetchNextArticlesPage())
+    }, [dispatch])
 
     useInitialEffect(() => {
-        dispatch(fetchInitArticles(searchParams))
+        dispatch(initArticlesPage(searchParams))
     })
-
-    const onObserv = useCallback(
-        () => {
-            dispatch(fetchNextArticles())
-        },
-        [dispatch]
-    )
-
-    if (error) {
-        return (
-            <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
-                <Page className={classNames(cls.ArticlesPage, {}, [className])}>
-                    <Text title={t('Ошибка в загрузке статей')} align={TextAlign.CENTER} />
-                </Page>
-            </DynamicModuleLoader>
-        )
-    }
-
-    if (!isLoading && !articles.length) {
-        return <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
-            <Page onObserv={onObserv} className={classNames(cls.ArticlesPage, {}, [className])}>
-                <ArticlesPageFilters />
-                <Text title={t('Статьи не найдены')} className={cls.notFoundText}/>
-            </Page>
-        </DynamicModuleLoader>
-    }
 
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
-            <Page onObserv={onObserv} className={classNames(cls.ArticlesPage, {}, [className])}>
+            <Page
+                onObserv={onLoadNextPart}
+                className={classNames(cls.ArticlesPage, {}, [className])}
+            >
                 <ArticlesPageFilters />
                 <ArticleList
                     isLoading={isLoading}
                     view={view}
                     articles={articles}
-                    className={cls.articlesList}
+                    className={cls.list}
                 />
             </Page>
         </DynamicModuleLoader>
     )
 }
 
-export default ArticlesPage
+export default memo(ArticlesPage)

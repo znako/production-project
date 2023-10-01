@@ -6,11 +6,11 @@ import {
 import { type CombinedState } from 'redux'
 import { type ProfileSchema } from 'entities/Profile'
 import { type AxiosInstance } from 'axios'
-import { type ArticleSchema } from 'entities/Article'
+import { type ArticleDetailsSchema } from 'entities/Article'
 import { type AddCommentFormSchema } from 'features/AddCommentForm'
 import { type ArticlesPageSchema } from 'pages/ArticlesPage'
 import { type ScrollRestoreSchema } from 'features/ScrollRestore'
-import { type ArticleDetailsSchema } from 'pages/ArticleDetailsPage/'
+import { type ArticleDetailsPageSchema } from 'pages/ArticleDetailsPage/'
 
 export interface StateSchema {
     user: UserSchema;
@@ -19,10 +19,10 @@ export interface StateSchema {
     // Асинхронные редюсеры
     loginForm?: LoginSchema;
     profile?: ProfileSchema;
-    article?: ArticleSchema;
     articleDetails?: ArticleDetailsSchema;
     addCommentForm?: AddCommentFormSchema;
     articlesPage?: ArticlesPageSchema;
+    articleDetailsPage?: ArticleDetailsPageSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema

@@ -8,8 +8,9 @@ import { CommentsList } from 'entities/Comment'
 import { DynamicModuleLoader, type ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
 import { useDispatch, useSelector } from 'react-redux'
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect'
-import { AddCommentForm } from 'features/AddCommentForm'
+import { AddCommentForm } from 'features/addCommentForm'
 import { Page } from 'widgets/Page/Page'
+import { VStack } from 'shared/ui/Stack'
 import { addCommentForArticle } from '../../model/services/addCommentForArticle/addCommentForArticle'
 import { fetchCommentsByArticleId } from '../../model/services/fetchCommentsByArticleId/fetchCommentsByArticleId'
 import cls from './ArticleDetailsPage.module.scss'
@@ -22,16 +23,15 @@ import { getArticleRecommendationsIsLoading } from '../../model/selectors/recomm
 import {
     fetchArticleRecommendations
 } from '../../model/services/fetchArticleRecommendations/fetchArticleRecommendations'
-import { articleDetailsReducers } from '../../model/slices/'
+import { articleDetailsPageReducer } from '../../model/slices'
 import { ArticleDetailsPageHeader } from '../ArticleDetailsPageHeader/ArticleDetailsPageHeader'
-import { VStack } from 'shared/ui/Stack'
 
 interface ArticleDetailsPageProps {
     className?: string;
 }
 
 const reducers: ReducersList = {
-    articleDetails: articleDetailsReducers
+    articleDetails: articleDetailsPageReducer
 }
 
 const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
@@ -64,20 +64,23 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
             <Page className={classNames(cls.ArticleDetailsPage, {}, [className])}>
-                <VStack max gap='32'>
+                <VStack gap="16" max>
                     <ArticleDetailsPageHeader />
                     <ArticleDetails id={id} />
                     <Text
                         size={TextSize.L_SIZE}
+                        className={cls.commentTitle}
                         title={t('Рекомендуем')}
                     />
                     <ArticleList
                         articles={recommendations}
                         isLoading={recommendationsIsLoading}
-                        target={'_blank'}
+                        className={cls.recommendations}
+                        target="_blank"
                     />
                     <Text
                         size={TextSize.L_SIZE}
+                        className={cls.commentTitle}
                         title={t('Комментарии')}
                     />
                     <AddCommentForm onSendComment={onSendComment} />

@@ -1,13 +1,13 @@
-import { type Article, ArticleView } from '../../model/types/article'
-import { type HTMLAttributeAnchorTarget, memo } from 'react'
-import { useTranslation } from 'react-i18next'
-import { List, type ListRowProps, WindowScroller } from 'react-virtualized'
 import { classNames } from 'shared/lib/classNames/classNames'
+import { useTranslation } from 'react-i18next'
+import { type HTMLAttributeAnchorTarget, memo } from 'react'
 import { Text, TextSize } from 'shared/ui/Text/Text'
+import { List, type ListRowProps, WindowScroller } from 'react-virtualized'
 import { PAGE_ID } from 'widgets/Page/Page'
-import { ArticleListItem } from '../ArticleListItem/ArticleListItem'
 import { ArticleListItemSkeleton } from '../ArticleListItem/ArticleListItemSkeleton'
+import { ArticleListItem } from '../ArticleListItem/ArticleListItem'
 import cls from './ArticleList.module.scss'
+import { type Article, ArticleView } from '../../model/types/article'
 
 interface ArticleListProps {
     className?: string;
@@ -31,12 +31,11 @@ export const ArticleList = memo((props: ArticleListProps) => {
         isLoading,
         target
     } = props
-
     const { t } = useTranslation()
 
     const isBig = view === ArticleView.BIG
 
-    const itemsPerRow = isBig ? 1 : 4
+    const itemsPerRow = isBig ? 1 : 3
     const rowCount = isBig ? articles.length : Math.ceil(articles.length / itemsPerRow)
 
     const rowRender = ({

@@ -1,17 +1,7 @@
-import { getIsCanEditArticle } from './model/selectors/article'
-
 export {
     ArticleDetailsPageAsync as ArticleDetailsPage
 } from './ui/ArticleDetailsPage/ArticleDetailsPage.async'
 
-export type {
-    ArticleDetailsSchema
-} from './model/types/index'
-
-export {
-    articleDetailsReducers
-} from './model/slices/index'
-
-export {
-    getIsCanEditArticle
-}
+export type { ArticleDetailsCommentsSchema } from './model/types/ArticleDetailsCommentsSchema'
+export type { ArticleDetailsRecommendationsSchema } from './model/types/ArticleDetailsRecommendationsSchema'
+export { ArticleDetailsPageSchema } from './model/types'

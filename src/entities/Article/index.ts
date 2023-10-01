@@ -1,39 +1,14 @@
-import { type Article, ArticleBlocksType, ArticleView, ArticleSortField, ArticleTypes } from './model/types/article'
-import { ArticleDetails } from './ui/ArticleDetails/ArticleDetails'
-import { type ArticleSchema } from './model/types/articleSchema'
-import { getArticleData, getArticleError, getArticleIsLoading } from './model/selectors/getArticle'
-import { articleDetailsActions, articleDetailsReducer, ArticleDetailsSlice } from './model/slice/articleSlice'
-import { ArticleList } from './ui/ArticleList/ArticleList'
-import { ArticleTypesTabs } from './ui/ArticleTypesTabs/ArticleTypesTabs'
-
-export {
-    type Article,
-    type ArticleSchema,
-    ArticleBlocksType,
-    ArticleSortField,
-    ArticleTypes
-}
-
 export {
     ArticleDetails
-}
+} from './ui/ArticleDetails/ArticleDetails'
 
 export {
-    getArticleIsLoading,
-    getArticleError,
-    getArticleData
-}
+    type Article, ArticleView, ArticleSortField, ArticleType
+} from './model/types/article'
+export type { ArticleDetailsSchema } from './model/types/articleDetailsSchema'
 
-export {
-    ArticleDetailsSlice,
-    articleDetailsActions,
-    articleDetailsReducer
-}
-
-export {
-    ArticleList,
-    ArticleView
-}
-export {
-    ArticleTypesTabs
-}
+export { ArticleList } from './ui/ArticleList/ArticleList'
+export { ArticleViewSelector } from './ui/ArticleViewSelector/ArticleViewSelector'
+export { ArticleSortSelector } from './ui/ArticleSortSelector/ArticleSortSelector'
+export { ArticleTypeTabs } from './ui/ArticleTypeTabs/ArticleTypeTabs'
+export { getArticleDetailsData } from './model/selectors/articleDetails'

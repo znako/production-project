@@ -1,109 +1,99 @@
-import { type ArticleSortField, type ArticleTypes, ArticleTypesTabs, type ArticleView } from 'entities/Article'
-import { ArticleSortSelector } from 'entities/Article/ui/ArticleSortSelector/ArticleSortSelector'
-import { ArticleViewSelector } from 'entities/Article/ui/ArticleViewSelector/ArticleViewSelector'
-import { getArticlesPageOrder, getArticlesPageSearch, getArticlesPageSort, getArticlesPageView } from '../../model/selectors/getArticlesPage'
-import { fetchArticlesPage } from '../../model/services/fetchArticlesPage/fetchArticlesPage'
-import { ArticlesPageActions } from '../../model/slice/ArticlesPageSlice'
-import { useCallback } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
 import { classNames } from 'shared/lib/classNames/classNames'
+import { useTranslation } from 'react-i18next'
+import { memo, useCallback } from 'react'
+import {
+    type ArticleSortField, ArticleSortSelector, ArticleTypeTabs, type ArticleView, ArticleViewSelector
+} from 'entities/Article'
+import { useSelector } from 'react-redux'
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
-import { useDebounce } from 'shared/lib/hooks/useDebounce/useDebounce'
-import { type SortOrder } from 'shared/types'
 import { Card } from 'shared/ui/Card/Card'
 import { Input } from 'shared/ui/Input/Input'
+import { type SortOrder } from 'shared/types'
+import { useDebounce } from 'shared/lib/hooks/useDebounce/useDebounce'
+import { type ArticleType } from 'entities/Article/model/types/article'
+import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchArticlesList'
 import cls from './ArticlesPageFilters.module.scss'
+import {
+    getArticlesPageOrder, getArticlesPageSearch,
+    getArticlesPageSort, getArticlesPageType,
+    getArticlesPageView
+} from '../../model/selectors/articlesPageSelectors'
+import { articlesPageActions } from '../../model/slices/articlesPageSlice'
 
 interface ArticlesPageFiltersProps {
-    className?: string
+    className?: string;
 }
 
-export const ArticlesPageFilters = (props: ArticlesPageFiltersProps) => {
-    const {
-        className
-    } = props
-
-    const view = useSelector(getArticlesPageView)
-    const dispatch = useAppDispatch()
+export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
+    const { className } = props
     const { t } = useTranslation()
+    const dispatch = useAppDispatch()
+    const view = useSelector(getArticlesPageView)
+    const sort = useSelector(getArticlesPageSort)
     const order = useSelector(getArticlesPageOrder)
-    const sortField = useSelector(getArticlesPageSort)
     const search = useSelector(getArticlesPageSearch)
+    const type = useSelector(getArticlesPageType)
 
-    const fetchData = useCallback(
-        () => {
-            dispatch(fetchArticlesPage({ isReplace: true }))
-        },
-        [dispatch]
-    )
+    const fetchData = useCallback(() => {
+        dispatch(fetchArticlesList({ replace: true }))
+    }, [dispatch])
 
-    const DebouncedFetchData = useDebounce(fetchData, 500)
+    const debouncedFetchData = useDebounce(fetchData, 500)
 
-    const onSetView = useCallback(
-        (view: ArticleView) => {
-            dispatch(ArticlesPageActions.setView(view))
-            fetchData()
-        },
-        [dispatch]
-    )
+    const onChangeView = useCallback((view: ArticleView) => {
+        dispatch(articlesPageActions.setView(view))
+    }, [dispatch])
 
-    const onChangeOrder = useCallback(
-        (newOrder: SortOrder) => {
-            dispatch(ArticlesPageActions.setOrder(newOrder))
-            dispatch(ArticlesPageActions.setPage(1))
-            fetchData()
-        },
-        [dispatch]
-    )
+    const onChangeSort = useCallback((newSort: ArticleSortField) => {
+        dispatch(articlesPageActions.setSort(newSort))
+        dispatch(articlesPageActions.setPage(1))
+        fetchData()
+    }, [dispatch, fetchData])
 
-    const onChangeSortField = useCallback(
-        (newSortField: ArticleSortField) => {
-            dispatch(ArticlesPageActions.setSort(newSortField))
-            dispatch(ArticlesPageActions.setPage(1))
-            fetchData()
-        },
-        [dispatch]
-    )
+    const onChangeOrder = useCallback((newOrder: SortOrder) => {
+        dispatch(articlesPageActions.setOrder(newOrder))
+        dispatch(articlesPageActions.setPage(1))
+        fetchData()
+    }, [dispatch, fetchData])
 
-    const onChangeSearch = useCallback(
-        (newSearch: string) => {
-            dispatch(ArticlesPageActions.setSearch(newSearch))
-            dispatch(ArticlesPageActions.setPage(1))
-            DebouncedFetchData()
-        }, [dispatch])
+    const onChangeSearch = useCallback((search: string) => {
+        dispatch(articlesPageActions.setSearch(search))
+        dispatch(articlesPageActions.setPage(1))
+        debouncedFetchData()
+    }, [dispatch, debouncedFetchData])
 
-    const onClickTab = useCallback(
-        (value: ArticleTypes) => {
-            dispatch(ArticlesPageActions.setType(value))
-            dispatch(ArticlesPageActions.setPage(1))
-            fetchData()
-        },
-        [dispatch]
-    )
+    const onChangeType = useCallback((value: ArticleType) => {
+        dispatch(articlesPageActions.setType(value))
+        dispatch(articlesPageActions.setPage(1))
+        fetchData()
+    }, [dispatch, fetchData])
 
     return (
         <div className={classNames(cls.ArticlesPageFilters, {}, [className])}>
             <div className={cls.sortWrapper}>
                 <ArticleSortSelector
                     order={order}
-                    sortField={sortField}
+                    sort={sort}
                     onChangeOrder={onChangeOrder}
-                    onChangeSort={onChangeSortField}
+                    onChangeSort={onChangeSort}
                 />
-                <ArticleViewSelector view={view} setView={onSetView} />
+                <ArticleViewSelector
+                    view={view}
+                    onViewClick={onChangeView}
+                />
             </div>
             <Card className={cls.search}>
                 <Input
-                    placeholder={t('Поиск')}
-                    value={search}
                     onChange={onChangeSearch}
+                    value={search}
+                    placeholder={t('Поиск')}
                 />
             </Card>
-            <ArticleTypesTabs
+            <ArticleTypeTabs
+                value={type}
+                onChangeType={onChangeType}
                 className={cls.tabs}
-                onClickTab={onClickTab}
             />
         </div>
     )
-}
+})

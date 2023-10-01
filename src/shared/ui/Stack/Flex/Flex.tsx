@@ -32,7 +32,9 @@ const GapClass: Record<GapSize, string> = {
     32: cls.Gap32
 }
 
-export interface FlexProps {
+type DivProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+
+export interface FlexProps extends DivProps {
     className?: string
     children: React.ReactNode
     justify?: JustifyFlex

@@ -1,4 +1,4 @@
-import { type ChangeEvent, memo, useMemo, useCallback } from 'react'
+import { type ChangeEvent, useMemo, useCallback } from 'react'
 import { classNames, type Mods } from 'shared/lib/classNames/classNames'
 import cls from './Select.module.scss'
 

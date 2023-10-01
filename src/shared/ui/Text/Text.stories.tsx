@@ -56,6 +56,20 @@ onlyTextDark.args = {
 }
 onlyTextDark.decorators = [ThemeDecorator(Theme.DARK)]
 
+export const SizeS = Template.bind({})
+SizeS.args = {
+    size: TextSize.S_SIZE,
+    title: 'Description',
+    text: 'Description Description Description Description'
+}
+
+export const SizeM = Template.bind({})
+SizeM.args = {
+    size: TextSize.M_SIZE,
+    title: 'Description',
+    text: 'Description Description Description Description'
+}
+
 export const SizeL = Template.bind({})
 SizeL.args = {
     size: TextSize.L_SIZE,

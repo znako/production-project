@@ -1,50 +1,46 @@
-import { getArticleData } from 'entities/Article'
-import { getIsCanEditArticle } from '../../model/selectors/article'
-import { useCallback } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { RoutePath } from 'shared/config/routeConfig/routeConfig'
-import { classNames } from 'shared/lib/classNames/classNames'
-import { Button, ButtonTheme } from 'shared/ui/Button/Button'
-import { HStack } from 'shared/ui/Stack'
+import { classNames } from 'shared/lib/classNames/classNames';
+import { useTranslation } from 'react-i18next';
+import { memo, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { RoutePath } from 'shared/config/routeConfig/routeConfig';
+import { Button, ButtonTheme } from 'shared/ui/Button/Button';
+import { useSelector } from 'react-redux';
+import { getArticleDetailsData } from 'entities/Article/model/selectors/articleDetails';
+import { HStack } from 'shared/ui/Stack';
+import { getCanEditArticle } from '../../model/selectors/article';
 
 interface ArticleDetailsPageHeaderProps {
-    className?: string
+    className?: string;
 }
 
-export const ArticleDetailsPageHeader = ({ className }: ArticleDetailsPageHeaderProps) => {
-    const { t } = useTranslation()
-    const navigate = useNavigate()
-    const article = useSelector(getArticleData)
-    const isCanEdit = useSelector(getIsCanEditArticle)
-    console.log(isCanEdit)
+export const ArticleDetailsPageHeader = memo((props: ArticleDetailsPageHeaderProps) => {
+    const { className } = props;
+    const { t } = useTranslation();
+    const navigate = useNavigate();
+    const canEdit = useSelector(getCanEditArticle);
+    const article = useSelector(getArticleDetailsData);
 
     const onBackToList = useCallback(() => {
-        navigate(RoutePath.articles)
-    }, [navigate])
+        navigate(RoutePath.articles);
+    }, [navigate]);
 
-    const onEditArticle = useCallback(
-        () => {
-            navigate(`${RoutePath.article_details}${article?.id}/edit`)
-        },
-        [navigate, article]
-    )
+    const onEditArticle = useCallback(() => {
+        navigate(`${RoutePath.article_details}${article?.id}/edit`);
+    }, [article?.id, navigate]);
 
     return (
-        <HStack justify='between' max className={classNames('', {}, [className])}>
-            <Button
-                theme={ButtonTheme.OUTLINE}
-                onClick={onBackToList}
-            >
+        <HStack max justify="between" className={classNames('', {}, [className])}>
+            <Button theme={ButtonTheme.OUTLINE} onClick={onBackToList}>
                 {t('Назад к списку')}
             </Button>
-            {isCanEdit && <Button
-                theme={ButtonTheme.OUTLINE}
-                onClick={onEditArticle}
-            >
-                {t('Редактировать')}
-            </Button>}
+            {canEdit && (
+                <Button
+                    theme={ButtonTheme.OUTLINE}
+                    onClick={onEditArticle}
+                >
+                    {t('Редактировать')}
+                </Button>
+            )}
         </HStack>
-    )
-}
+    );
+});

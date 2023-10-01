@@ -3,16 +3,15 @@ import { type StateSchema, StoreProvider } from 'app/providers/StoreProvider'
 import { loginReducer } from 'features/AuthByUsername/model/slice/loginSlice'
 import { profileReducer } from 'entities/Profile'
 import { type ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
-import { articleDetailsReducer } from 'entities/Article'
+import { articleDetailsReducer } from 'entities/Article/model/slice/articleDetailsSlice'
 import { AddCommentFormReducers } from 'features/AddCommentForm/model/slice/addCommentFormSlice'
-import { articleDetailsReducers } from 'pages/ArticleDetailsPage'
 
 const defaultAsyncReducers: ReducersList = {
     loginForm: loginReducer,
     profile: profileReducer,
-    article: articleDetailsReducer,
+    articleDetails: articleDetailsReducer,
     addCommentForm: AddCommentFormReducers,
-    articleDetails: articleDetailsReducers
+    articleDetailsPage: articleDetailsReducer
 }
 
 export const StoreDecorator = (

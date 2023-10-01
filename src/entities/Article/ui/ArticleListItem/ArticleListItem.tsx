@@ -1,66 +1,67 @@
-import { type Article, ArticleBlocksType, type ArticleBlockText, ArticleView } from '../../model/types/article'
-import React, { type HTMLAttributeAnchorTarget, useCallback } from 'react'
 import { classNames } from 'shared/lib/classNames/classNames'
-import cls from './ArticleListItem.module.scss'
-import { Card } from 'shared/ui/Card/Card'
+import { useTranslation } from 'react-i18next'
+import { type HTMLAttributeAnchorTarget, memo } from 'react'
 import { Text } from 'shared/ui/Text/Text'
 import { Icon } from 'shared/ui/Icon/Icons'
 import EyeIcon from 'shared/assets/icons/eye.svg'
-import { useHover } from 'shared/lib/hooks/useHover/useHover'
+import { Card } from 'shared/ui/Card/Card'
 import { Avatar } from 'shared/ui/Avatar/Avatar'
-import { Button } from 'shared/ui/Button/Button'
-import { useTranslation } from 'react-i18next'
-import { ArticleText } from '../ArticleText/ArticleText'
-import { useNavigate } from 'react-router-dom'
-import { AppRoutes, RoutePath } from 'shared/config/routeConfig/routeConfig'
+import { Button, ButtonTheme } from 'shared/ui/Button/Button'
+import { RoutePath } from 'shared/config/routeConfig/routeConfig'
 import { AppLink } from 'shared/ui/AppLink/AppLink'
+import cls from './ArticleListItem.module.scss'
+import {
+    type Article, ArticleBlockType, type ArticleTextBlock, ArticleView
+} from '../../model/types/article'
+import { ArticleTextBlockComponent } from '../ArticleTextBlockComponent/ArticleTextBlockComponent'
 
-interface ArticlesListItem {
-    className?: string
-    article: Article
-    view?: ArticleView
-    target?: HTMLAttributeAnchorTarget
+interface ArticleListItemProps {
+    className?: string;
+    article: Article;
+    view: ArticleView;
+    target?: HTMLAttributeAnchorTarget;
 }
-export const ArticleListItem = (props: ArticlesListItem) => {
-    const {
-        className,
-        view = ArticleView.SMALL,
-        article,
-        target
-    } = props
 
+export const ArticleListItem = memo((props: ArticleListItemProps) => {
+    const {
+        className, article, view, target
+    } = props
     const { t } = useTranslation()
 
-    const date = <Text text={article.createdAt} className={cls.date} />
-    const title = <Text text={article.title} className={cls.title} />
     const types = <Text text={article.type.join(', ')} className={cls.types} />
-    const views = <>
-        <Text text={String(article.views)} className={cls.views} />
-        <Icon Svg={EyeIcon} />
-    </>
-    const img = <img src={article.img} alt={article.title} className={cls.img} />
+    const views = (
+        <>
+            <Text text={String(article.views)} className={cls.views} />
+            <Icon Svg={EyeIcon} />
+        </>
+    )
 
     if (view === ArticleView.BIG) {
-        const textBlock = article.blocks.find((block) => {
-            return block.type === ArticleBlocksType.TEXT
-        }) as ArticleBlockText
+        const textBlock = article.blocks.find(
+            (block) => block.type === ArticleBlockType.TEXT
+        ) as ArticleTextBlock
 
         return (
             <div className={classNames(cls.ArticleListItem, {}, [className, cls[view]])}>
-                <Card>
+                <Card className={cls.card}>
                     <div className={cls.header}>
                         <Avatar size={30} src={article.user.avatar} />
                         <Text text={article.user.username} className={cls.username} />
-                        {date}
+                        <Text text={article.createdAt} className={cls.date} />
                     </div>
-                    {title}
+                    <Text title={article.title} className={cls.title} />
                     {types}
-                    {img}
-                    {textBlock && <ArticleText block={textBlock} className={cls.text} />}
+                    <img src={article.img} className={cls.img} alt={article.title} />
+                    {textBlock && (
+                        <ArticleTextBlockComponent block={textBlock} className={cls.textBlock} />
+                    )}
                     <div className={cls.footer}>
-                        <AppLink to={RoutePath.article_details + article.id}>
-                            <Button>
-                                {t('Читать далее')}
+                        <AppLink
+                            target={target}
+                            to={RoutePath.article_details + article.id}
+                        >
+                            <Button theme={ButtonTheme.OUTLINE}>
+                                {'Читать далее...'}
                             </Button>
                         </AppLink>
                         {views}
@@ -76,17 +77,17 @@ export const ArticleListItem = (props: ArticlesListItem) => {
             to={RoutePath.article_details + article.id}
             className={classNames(cls.ArticleListItem, {}, [className, cls[view]])}
         >
-            <Card>
-                <div className={cls.imgWrapper}>
-                    {img}
-                    {date}
+            <Card className={cls.card}>
+                <div className={cls.imageWrapper}>
+                    <img alt={article.title} src={article.img} className={cls.img} />
+                    <Text text={article.createdAt} className={cls.date} />
                 </div>
-                <div className={cls.articleInfo}>
+                <div className={cls.infoWrapper}>
                     {types}
                     {views}
                 </div>
-                {title}
+                <Text text={article.title} className={cls.title} />
             </Card>
         </AppLink>
     )
-}
+})

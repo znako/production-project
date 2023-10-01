@@ -1,8 +1,6 @@
-import { ArticleBlockCode } from 'entities/Article/model/types/article'
 import React, { useCallback } from 'react'
 import { classNames } from 'shared/lib/classNames/classNames'
 import { Button, ButtonTheme } from '../Button/Button'
-import { Icon } from '../Icon/Icons'
 import cls from './Code.module.scss'
 import CopyIcon from 'shared/assets/icons/copy.svg'
 
