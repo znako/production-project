@@ -9,6 +9,8 @@ import cls from './Navbar.module.scss'
 import { Text, TextTheme } from 'shared/ui/Text/Text'
 import { AppLink, AppLinkTheme } from 'shared/ui/AppLink/AppLink'
 import { RoutePath } from 'shared/config/routeConfig/routeConfig'
+import { DropDown } from 'shared/ui/DropDown/DropDown'
+import { Avatar } from 'shared/ui/Avatar/Avatar'
 
 interface NavbarProps {
     className?: string;
@@ -47,13 +49,22 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                 >
                     {t('Создать статью')}
                 </AppLink>
-                <Button
-                    theme={ButtonTheme.CLEAR_INVERTED}
-                    className={cls.links}
-                    onClick={onLogout}
-                >
-                    {t('Выйти')}
-                </Button>
+                <DropDown
+                    items={[
+                        {
+                            content: t('Выйти'),
+                            onClick: onLogout
+                        },
+                        {
+                            content: t('Профиль'),
+                            href: RoutePath.profile + authData.id
+                        }
+                    ]}
+                    trigger={<Avatar src={authData.avatar} size={35}/>}
+                    className={cls.dropDown}
+                    direction={'bottom left'}
+                />
+
             </header>
         )
     }
