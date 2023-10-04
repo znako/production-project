@@ -33,7 +33,7 @@ module.exports = {
     "react/display-name": "off",
     "i18next/no-literal-string": ['error', {
       markupOnly: true,
-      ignoreAttribute: ['data-testid', 'to', "justify", "align", "direction", "gap", 'role', 'target']
+      ignoreAttribute: ['data-testid', 'to', "justify", "align", "direction", "gap", 'role', 'target', 'as']
     }],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error",
