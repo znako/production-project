@@ -1,6 +1,5 @@
-import { getProfileData, getProfileReadonly, profileActions } from 'entities/Profile'
-import { updateProfileData } from 'entities/Profile/'
 import { getUserAuthData } from 'entities/User'
+import { getProfileData, getProfileReadonly, profileActions, updateProfileData } from 'features/editableProfileCard'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'

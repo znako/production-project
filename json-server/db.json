@@ -613,6 +613,36 @@
       "userId": "1",
       "text": "k,m",
       "id": "C4T8nl4"
+    },
+    {
+      "articleId": "7",
+      "userId": "1",
+      "text": "Hello",
+      "id": "kt2CSMR"
+    },
+    {
+      "articleId": "7",
+      "userId": "1",
+      "text": "hello",
+      "id": "RRB1qhn"
+    },
+    {
+      "articleId": "7",
+      "userId": "1",
+      "text": "hello",
+      "id": "qdMc5HH"
+    },
+    {
+      "articleId": "7",
+      "userId": "1",
+      "text": "whayaaa",
+      "id": "II43BQ7"
+    },
+    {
+      "articleId": "15",
+      "userId": "1",
+      "text": "asd",
+      "id": "DESWwTM"
     }
   ],
   "users": [
@@ -637,7 +667,7 @@
       "first": "jghwer",
       "lastname": "asfewr",
       "age": 465,
-      "currency": "EUR",
+      "currency": "USD",
       "country": "Russia",
       "city": "Moscow",
       "username": "admin213",

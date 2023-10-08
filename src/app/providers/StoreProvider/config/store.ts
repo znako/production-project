@@ -1,12 +1,11 @@
 import { configureStore, type ReducersMapObject } from '@reduxjs/toolkit'
 import { userReducer } from 'entities/User'
 import { $api } from 'shared/api/api'
-import { type To } from 'history'
-import { type NavigateOptions } from 'react-router'
 import { type CombinedState, type Reducer } from 'redux'
 import { type StateSchema, type ThunkExtraArg } from './StateSchema'
 import { createReducerManager } from './ReducerManager'
 import { scrollRestoreReducer } from 'features/ScrollRestore'
+import { rtkApi } from 'shared/api/rtkApi'
 
 export function createReduxStore (
     initialState?: StateSchema,
@@ -15,7 +14,8 @@ export function createReduxStore (
     const rootReducers: ReducersMapObject<StateSchema> = {
         ...asyncReducers,
         user: userReducer,
-        scrollRestore: scrollRestoreReducer
+        scrollRestore: scrollRestoreReducer,
+        [rtkApi.reducerPath]: rtkApi.reducer
     }
 
     const reducerManager = createReducerManager(rootReducers)
@@ -32,7 +32,7 @@ export function createReduxStore (
             thunk: {
                 extraArgument: extraArg
             }
-        })
+        }).concat(rtkApi.middleware)
     })
 
     // @ts-expect-error

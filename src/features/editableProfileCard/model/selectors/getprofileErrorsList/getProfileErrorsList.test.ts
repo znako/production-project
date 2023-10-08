@@ -1,6 +1,6 @@
 import { type StateSchema } from 'app/providers/StoreProvider'
-import { ValidateProfileEror } from '../../types/profile'
-import { getProfileErrorsLift } from './getProfileErrorsList'
+import { ValidateProfileEror } from '../../types/editableProfileCardSchema'
+import { getProfileErrorsList } from './getProfileErrorsList'
 
 describe('getProfileErrorsList', () => {
     test('should return INCORRECT_USER_DATA, INCORRECT_AGE', () => {
@@ -12,11 +12,11 @@ describe('getProfileErrorsList', () => {
                 ]
             }
         }
-        expect(getProfileErrorsLift(state as StateSchema)).toEqual(['INCORRECT_USER_DATA', 'INCORRECT_AGE'])
+        expect(getProfileErrorsList(state as StateSchema)).toEqual(['INCORRECT_USER_DATA', 'INCORRECT_AGE'])
     })
 
     test('should work with empty state', () => {
         const state: DeepPartial<StateSchema> = {}
-        expect(getProfileErrorsLift(state as StateSchema)).toEqual(undefined)
+        expect(getProfileErrorsList(state as StateSchema)).toEqual(undefined)
     })
 })
